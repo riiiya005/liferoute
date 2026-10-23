@@ -1,0 +1,4018 @@
+/* ==========================================================================
+   LifeRoute — Google Stitch Healthcare Design System
+   Visual Language, Responsive Layout, Spacing, Typography, Cards, & Navigation
+   ========================================================================== */
+
+:root {
+  /* Brand Teal Palette */
+  --teal-50: #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-200: #99f6e4;
+  --teal-300: #5eead4;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+  --teal-900: #134e4a;
+
+  /* Emergency Crimson Palette */
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-200: #fecaca;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+
+  /* Warning Amber */
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+  --amber-600: #d97706;
+  --amber-700: #b45309;
+
+  /* Success Green */
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-200: #bbf7d0;
+  --green-600: #16a34a;
+  --green-700: #15803d;
+
+  /* Directions / Blue */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+
+  /* Slate Neutrals */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* Semantics */
+  --bg-page: var(--slate-50);
+  --bg-surface: #ffffff;
+  --border-subtle: var(--slate-200);
+  --border-strong: var(--slate-300);
+  --text-main: var(--slate-900);
+  --text-muted: var(--slate-600);
+  --text-subtle: var(--slate-500);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 20px 35px -8px rgba(15, 23, 42, 0.12);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Base & Reset
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Inter', 'Hind Siliguri', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-main);
+  background-color: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--bg-page);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* ==========================================================================
+   Top Alert Strip
+   ========================================================================== */
+
+.top-banner {
+  background-color: var(--slate-900);
+  color: #f1f5f9;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.banner-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 6px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.banner-pill {
+  background: rgba(220, 38, 38, 0.25);
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: #fca5a5;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.banner-pill:hover {
+  background: rgba(220, 38, 38, 0.4);
+  color: #ffffff;
+}
+
+.banner-icon {
+  flex-shrink: 0;
+}
+
+.banner-text {
+  color: var(--slate-300);
+  font-size: 0.8125rem;
+}
+
+.banner-lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78125rem;
+}
+
+.lang-link {
+  color: var(--slate-400);
+  transition: color var(--transition-fast);
+}
+
+.lang-link:hover, .lang-link.active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.banner-lang-switch .divider {
+  color: var(--slate-600);
+}
+
+/* ==========================================================================
+   Header & Navbar (Stitch Sticky Bar)
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+.header-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--teal-700), var(--teal-600));
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--slate-900);
+  line-height: 1.1;
+}
+
+.brand-accent {
+  color: var(--teal-700);
+}
+
+.brand-tagline {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--teal-700);
+  margin-top: 2px;
+}
+
+/* Nav links */
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  transition: all var(--transition-fast);
+}
+
+.nav-item:hover {
+  background-color: var(--slate-100);
+  color: var(--teal-800);
+}
+
+.nav-item.active {
+  background-color: var(--teal-50);
+  color: var(--teal-800);
+  font-weight: 700;
+}
+
+.nav-item.nav-emergency {
+  color: var(--red-700);
+}
+
+.nav-item.nav-emergency.active {
+  background-color: var(--red-50);
+  color: var(--red-700);
+}
+
+.header-actions-mobile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-call-btn {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--red-600);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(220, 38, 38, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.header-call-btn:hover {
+  background-color: var(--red-700);
+  transform: translateY(-1px);
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-icon-svg {
+  transition: transform var(--transition-fast);
+  vertical-align: middle;
+}
+
+.nav-item:hover .nav-icon-svg {
+  transform: scale(1.1);
+}
+
+.nav-icon-home { color: var(--slate-600); }
+.nav-icon-emergency { color: var(--red-600); }
+.nav-icon-hospital { color: var(--teal-700); }
+.nav-icon-ambulance { color: var(--red-600); }
+.nav-icon-blood { color: var(--red-600); }
+.nav-icon-medicine { color: var(--teal-600); }
+.nav-icon-about { color: var(--blue-600); }
+
+/* Nav Language Pill */
+.nav-lang-pill {
+  display: inline-flex;
+  background-color: var(--slate-100);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 3px;
+  margin-left: 10px;
+}
+
+.lang-pill-btn {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--slate-600);
+  transition: all var(--transition-fast);
+}
+
+.lang-pill-btn.active {
+  background-color: var(--teal-700);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 118, 110, 0.2);
+}
+
+.lang-pill-btn:hover:not(.active) {
+  color: var(--slate-900);
+}
+
+/* Mobile Toggle Hamburger */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--slate-800);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+/* ==========================================================================
+   Main Content Wrapper & Container
+   ========================================================================== */
+
+.site-main {
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+/* Standard Page Header */
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header.text-center {
+  text-align: center;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.page-title {
+  font-size: clamp(1.85rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.page-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+/* ==========================================================================
+   Buttons (Google Stitch Hierarchy)
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.925rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--teal-300);
+  outline-offset: 2px;
+}
+
+/* Primary Teal */
+.btn-primary {
+  background-color: var(--teal-700);
+  color: #ffffff;
+  border-color: var(--teal-700);
+  box-shadow: 0 1px 3px rgba(15, 118, 110, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--teal-800);
+  border-color: var(--teal-800);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(15, 118, 110, 0.25);
+}
+
+/* Emergency Red Primary */
+.btn-emergency-primary {
+  background-color: var(--red-600);
+  color: #ffffff;
+  border-color: var(--red-600);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
+}
+
+.btn-emergency-primary:hover {
+  background-color: var(--red-700);
+  border-color: var(--red-700);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+}
+
+/* Direct Call Buttons */
+.btn-call-primary {
+  background-color: var(--teal-700);
+  color: #ffffff;
+  border-color: var(--teal-700);
+  box-shadow: 0 1px 3px rgba(15, 118, 110, 0.2);
+}
+
+.btn-call-primary:hover {
+  background-color: var(--teal-800);
+  color: #ffffff;
+}
+
+.btn-call {
+  background-color: var(--teal-50);
+  color: var(--teal-800);
+  border-color: var(--teal-200);
+}
+
+.btn-call:hover {
+  background-color: var(--teal-100);
+  border-color: var(--teal-300);
+}
+
+/* Google Maps Directions */
+.btn-directions-primary {
+  background-color: #ffffff;
+  color: var(--blue-700);
+  border-color: var(--blue-200);
+}
+
+.btn-directions-primary:hover {
+  background-color: var(--blue-50);
+  border-color: var(--blue-300);
+}
+
+/* Outline Secondary */
+.btn-outline {
+  background-color: #ffffff;
+  color: var(--slate-800);
+  border-color: var(--border-strong);
+}
+
+.btn-outline:hover {
+  background-color: var(--slate-100);
+  border-color: var(--slate-400);
+  color: var(--slate-900);
+}
+
+/* Small Variants */
+.btn-sm {
+  padding: 7px 12px;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger-sm {
+  background: var(--red-600);
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger-sm:hover {
+  background: var(--red-700);
+}
+
+.btn-teal-sm {
+  background: var(--teal-700);
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-teal-sm:hover {
+  background: var(--teal-800);
+}
+
+/* ==========================================================================
+   Hero Section (Google Stitch Style)
+   ========================================================================== */
+
+.hero-section {
+  background: radial-gradient(circle at top right, rgba(15, 118, 110, 0.06), transparent 50%),
+              radial-gradient(circle at bottom left, rgba(220, 38, 38, 0.04), transparent 50%),
+              #ffffff;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 56px 20px 64px;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+}
+
+.hero-heading {
+  font-size: clamp(2.3rem, 4.2vw, 3.35rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--slate-900);
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero-heading-lead {
+  font-weight: 800;
+  color: var(--slate-900);
+  display: block;
+}
+
+.hero-heading-sub {
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--teal-800);
+  display: block;
+}
+
+.hero-description {
+  font-size: 1.075rem;
+  line-height: 1.6;
+  color: var(--slate-600);
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.btn-icon-svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.btn-icon-svg.icon-emergency { color: #ffffff; }
+.btn-icon-svg.icon-ambulance { color: var(--red-600); }
+.btn-icon-svg.icon-blood { color: var(--red-600); }
+.btn-icon-svg.icon-medicine { color: var(--teal-700); }
+
+/* Quick Scenario: Professional Healthcare Entry Point */
+.quick-scenario-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--teal-700);
+  max-width: 620px;
+}
+
+.quick-scenario-header {
+  margin-bottom: 14px;
+}
+
+.scenario-eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+  margin-bottom: 4px;
+}
+
+.scenario-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--teal-600);
+}
+
+.scenario-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+  line-height: 1.25;
+}
+
+.scenario-subtitle {
+  font-size: 0.84rem;
+  color: var(--slate-500);
+  line-height: 1.45;
+}
+
+.scenario-item-action {
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  transition: all var(--transition-fast);
+}
+
+.scenario-item-action:hover {
+  border-color: var(--teal-300);
+  background: var(--teal-50);
+}
+
+.scenario-item-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scenario-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--red-50);
+  border: 1px solid var(--red-200);
+  color: var(--red-600);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.scenario-item-title {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.25;
+}
+
+.scenario-item-desc {
+  font-size: 0.78125rem;
+  color: var(--slate-500);
+  margin-top: 2px;
+}
+
+.btn-scenario-trigger {
+  background: var(--teal-700);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-scenario-trigger:hover {
+  background: var(--teal-800);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+}
+
+.scenario-secondary-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--slate-100);
+}
+
+.scenario-secondary-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate-400);
+}
+
+.scenario-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.scenario-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.scenario-pill:hover {
+  background: var(--teal-50);
+  border-color: var(--teal-200);
+  color: var(--teal-800);
+}
+
+/* Live Hospital Readiness & Triage Status Card */
+.hero-art-wrapper {
+  perspective: 1000px;
+}
+
+.hero-card-preview {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal-600), var(--red-600));
+}
+
+.live-triage-card {
+  padding: 20px;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.preview-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--teal-700);
+}
+
+.pulse-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--teal-600);
+  box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.2);
+}
+
+.preview-status-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-update-pill {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--green-700);
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+}
+
+.preview-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--slate-400);
+  letter-spacing: 0.05em;
+}
+
+/* Facility Visual Banner Asset */
+.facility-visual-banner {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 14px;
+  border: 1px solid var(--slate-200);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  line-height: 0;
+}
+
+.facility-banner-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.match-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.match-pill {
+  display: inline-flex;
+  align-items: center;
+  background: var(--teal-700);
+  color: #ffffff;
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+}
+
+.match-meta-tag {
+  font-size: 0.78125rem;
+  font-weight: 700;
+  color: var(--slate-500);
+}
+
+.facility-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.facility-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-700);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.facility-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.25;
+}
+
+.facility-meta {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+/* Structured Availability Dashboard Metrics */
+.verified-availability-panel {
+  margin-bottom: 14px;
+}
+
+.avail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.avail-metric-card {
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 9px 11px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 52px;
+  transition: all var(--transition-fast);
+}
+
+.avail-metric-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.avail-check-icon {
+  flex-shrink: 0;
+}
+
+.avail-success .avail-check-icon { color: var(--green-600); }
+.avail-info .avail-check-icon { color: var(--blue-600); }
+.avail-teal .avail-check-icon { color: var(--teal-600); }
+.avail-crimson .avail-check-icon { color: var(--red-600); }
+
+.avail-metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  line-height: 1.25;
+}
+
+.avail-metric-status {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-top: 3px;
+  align-self: flex-start;
+}
+
+.avail-metric-status.font-prominent {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.avail-teal .avail-metric-status.font-prominent { color: var(--teal-800); }
+.avail-crimson .avail-metric-status.font-prominent { color: var(--red-700); }
+
+/* Structured "Why This Match?" Rationale Panel */
+.why-match-box {
+  background: var(--slate-50);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--teal-600);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+.why-match-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--teal-800);
+  margin-bottom: 4px;
+}
+
+.why-match-text {
+  font-size: 0.8125rem;
+  color: var(--slate-600);
+  line-height: 1.45;
+}
+
+.preview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--slate-100);
+  padding-top: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.verified-status-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.verified-status-text {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+  font-weight: 600;
+}
+
+.preview-caption {
+  font-size: 0.78125rem;
+  font-weight: 700;
+  color: var(--slate-400);
+}
+
+/* ==========================================================================
+   How LifeRoute Works (5-Step Grid)
+   ========================================================================== */
+
+.section-how {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 20px;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-header.text-center {
+  text-align: center;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--slate-900);
+  margin-bottom: 10px;
+}
+
+.section-lead {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.step-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+}
+
+.step-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--teal-200);
+}
+
+.step-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: var(--teal-50);
+  border: 1.5px solid var(--teal-200);
+  color: var(--teal-700);
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+}
+
+.step-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.step-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Core Features / Principles Section
+   ========================================================================== */
+
+.section-features {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px 64px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.feature-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+
+.feat-teal {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+}
+
+.feat-blue {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+}
+
+.feat-red {
+  background: var(--red-50);
+  border: 1px solid var(--red-100);
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  font-size: 0.925rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* Disclaimer Strip */
+.disclaimer-strip {
+  max-width: 1200px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+}
+
+.disclaimer-content {
+  background: var(--amber-50);
+  border: 1px solid var(--amber-200);
+  border-left: 5px solid var(--amber-600);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  font-size: 0.875rem;
+  color: var(--amber-700);
+}
+
+.disclaimer-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.disclaimer-content p {
+  margin-top: 4px;
+  color: var(--slate-600);
+}
+
+/* ==========================================================================
+   Progress Stepper (4 Steps)
+   ========================================================================== */
+
+.progress-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 24px auto 0;
+  max-width: 640px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-500);
+}
+
+.step-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--slate-300);
+  background: #ffffff;
+  color: var(--slate-500);
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 0.78125rem;
+  flex-shrink: 0;
+}
+
+.step-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--slate-200);
+  max-width: 48px;
+}
+
+.step-item.active {
+  color: var(--teal-800);
+  font-weight: 700;
+}
+
+.step-item.active .step-circle {
+  border-color: var(--teal-700);
+  background: var(--teal-700);
+  color: #ffffff;
+}
+
+.step-item.completed {
+  color: var(--teal-800);
+}
+
+.step-item.completed .step-circle {
+  border-color: var(--teal-600);
+  background: var(--teal-50);
+  color: var(--teal-700);
+}
+
+.step-connector.completed {
+  background: var(--teal-600);
+}
+
+/* ==========================================================================
+   Emergency Triage Intake Page
+   ========================================================================== */
+
+.autofill-banner {
+  background: #ffffff;
+  border: 1px solid var(--teal-200);
+  border-radius: var(--radius-md);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-xs);
+}
+
+.autofill-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--teal-800);
+}
+
+.btn-autofill {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-autofill:hover {
+  background: var(--teal-100);
+}
+
+.intake-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-md);
+}
+
+.form-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.fieldset-legend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.legend-num {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-sm);
+  background: var(--teal-700);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+.legend-text {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.02em;
+}
+
+.form-divider {
+  border: 0;
+  border-top: 1px solid var(--slate-100);
+  margin: 32px 0;
+}
+
+/* Situation Radio Cards Grid */
+.situation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.situation-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.situation-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.situation-card-inner {
+  background: #ffffff;
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 18px 14px;
+  text-align: center;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  position: relative;
+}
+
+.situation-card:hover .situation-card-inner {
+  border-color: var(--teal-300);
+  background: var(--teal-50);
+  transform: translateY(-2px);
+}
+
+.situation-card.selected .situation-card-inner {
+  border-color: var(--teal-700);
+  background: var(--teal-50);
+  box-shadow: 0 0 0 1px var(--teal-700), var(--shadow-sm);
+}
+
+.situation-icon {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.situation-title {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.25;
+}
+
+.situation-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--teal-700);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: none;
+  place-items: center;
+}
+
+.situation-card.selected .situation-check {
+  display: grid;
+}
+
+/* Vital Details Form Controls */
+.form-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.form-select, .filter-select, .filter-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  color: var(--slate-800);
+  font-size: 0.925rem;
+  transition: all var(--transition-fast);
+}
+
+.form-select:focus, .filter-select:focus, .filter-input:focus {
+  outline: none;
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+.form-submit-row {
+  margin-top: 36px;
+  text-align: center;
+}
+
+.btn-emergency-submit {
+  background: var(--teal-700);
+  color: #ffffff;
+  border: 0;
+  padding: 14px 32px;
+  border-radius: var(--radius-md);
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all var(--transition-fast);
+}
+
+.btn-emergency-submit:hover {
+  background: var(--teal-800);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.3);
+}
+
+.btn-arrow {
+  font-size: 1.25rem;
+  transition: transform var(--transition-fast);
+}
+
+.btn-emergency-submit:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   Results Page & Triage Urgency Banners
+   ========================================================================== */
+
+.urgency-banner {
+  border-radius: var(--radius-xl);
+  padding: 24px 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.banner-critical {
+  background: var(--red-50);
+  border: 2px solid var(--red-200);
+}
+
+.banner-moderate {
+  background: var(--amber-50);
+  border: 2px solid var(--amber-200);
+}
+
+.banner-low {
+  background: var(--green-50);
+  border: 2px solid var(--green-200);
+}
+
+.urgency-icon-col {
+  font-size: 2.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.pulse-red {
+  animation: pulse-ring 2s infinite;
+}
+
+.urgency-badge {
+  display: inline-block;
+  font-size: 0.71875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--slate-700);
+}
+
+.urgency-title {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--slate-900);
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.triage-criteria {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--slate-700);
+}
+
+.criteria-label {
+  font-weight: 600;
+}
+
+.criteria-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.criteria-chip {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  padding: 3px 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.criteria-chip.chip-blood {
+  border-color: var(--red-200);
+  color: var(--red-700);
+  background: var(--red-50);
+}
+
+.criteria-chip.chip-area {
+  border-color: var(--teal-200);
+  color: var(--teal-800);
+  background: var(--teal-50);
+}
+
+/* Best Match Hospital Card */
+.best-match-card {
+  background: #ffffff;
+  border: 2px solid var(--teal-600);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: 0 10px 30px -5px rgba(15, 118, 110, 0.12), var(--shadow-md);
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.best-match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.best-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--teal-700), var(--teal-600));
+  color: #ffffff;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.78125rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.25);
+}
+
+.best-distance-pill {
+  background: var(--slate-100);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-700);
+}
+
+.best-facility-name {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.best-facility-meta {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.type-tag {
+  background: var(--slate-100);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  color: var(--slate-700);
+}
+
+.meta-sep {
+  color: var(--slate-300);
+}
+
+.phone-link a {
+  color: var(--teal-700);
+  font-weight: 700;
+}
+
+.phone-link a:hover {
+  text-decoration: underline;
+}
+
+/* Statuses Grid */
+.best-statuses-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.status-ready {
+  background: var(--teal-50);
+  color: var(--teal-800);
+  border-color: var(--teal-200);
+}
+
+.status-blood {
+  background: var(--red-50);
+  color: var(--red-700);
+  border-color: var(--red-200);
+}
+
+.status-icon {
+  font-weight: 900;
+}
+
+/* Rationale Box */
+.rationale-card {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 20px 22px;
+  margin-bottom: 28px;
+}
+
+.rationale-heading {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 12px;
+}
+
+.rationale-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px 20px;
+}
+
+.rationale-list li {
+  font-size: 0.875rem;
+  color: var(--slate-700);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-icon {
+  color: var(--teal-700);
+  font-weight: 900;
+}
+
+/* Best Actions Row */
+.best-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Leaflet Map */
+.map-section {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 40px;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.map-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.map-hint {
+  font-size: 0.8125rem;
+  color: var(--slate-500);
+  font-weight: 600;
+}
+
+.map-container {
+  height: 380px;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  z-index: 10;
+}
+
+/* Evaluated facilities transparency section */
+.evaluated-facilities-section {
+  margin-top: 40px;
+}
+
+.evaluated-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.facility-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+}
+
+.facility-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--slate-300);
+}
+
+.facility-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.facility-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.3;
+}
+
+.facility-card-meta {
+  font-size: 0.84375rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.facility-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.chip-sm {
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.chip-green {
+  background: var(--green-50);
+  color: var(--green-700);
+  border: 1px solid var(--green-200);
+}
+
+.chip-red {
+  background: var(--red-50);
+  color: var(--red-700);
+  border: 1px solid var(--red-200);
+}
+
+.chip-teal {
+  background: var(--teal-50);
+  color: var(--teal-800);
+  border: 1px solid var(--teal-200);
+}
+
+.chip-gray {
+  background: var(--slate-100);
+  color: var(--slate-500);
+  border: 1px solid var(--slate-200);
+}
+
+.chip-slate {
+  background: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-200);
+}
+
+.chip-crimson {
+  background: var(--red-50);
+  color: var(--red-700);
+  border: 1px solid var(--red-200);
+}
+
+.unsuitable-reasons {
+  background: var(--red-50);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reason-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--red-700);
+}
+
+.facility-card-actions {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--slate-100);
+}
+
+/* ==========================================================================
+   Directory Pages (Hospitals, Ambulance, Blood, Pharmacy)
+   ========================================================================== */
+
+.filter-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 20px 24px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr 1.2fr auto;
+  gap: 14px;
+  align-items: flex-end;
+}
+
+.filter-grid-ambulance {
+  grid-template-columns: 2fr 1.5fr auto;
+}
+
+.filter-grid-blood {
+  grid-template-columns: 1.5fr 2fr auto;
+}
+
+.filter-grid-pharmacy {
+  grid-template-columns: 3fr 2fr auto;
+}
+
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-700);
+}
+
+.filter-actions-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-filter-submit {
+  padding: 11px 20px;
+}
+
+.btn-filter-reset {
+  padding: 11px 14px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.facility-services-box {
+  margin-bottom: 14px;
+}
+
+.services-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--slate-500);
+  text-transform: uppercase;
+}
+
+.services-text {
+  font-size: 0.84375rem;
+  color: var(--slate-700);
+  margin-top: 2px;
+}
+
+/* Ambulance highlight card */
+.ambulance-best-card {
+  border: 2px solid var(--teal-600);
+  background: radial-gradient(circle at top right, var(--teal-50), #ffffff 70%);
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.12);
+}
+
+.ambulance-badge {
+  margin-bottom: 12px;
+}
+
+.pulse-dot-green {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green-600);
+  margin-right: 4px;
+  animation: pulse-ring 2s infinite;
+}
+
+/* Blood Pills row */
+.blood-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.blood-pills-label {
+  font-size: 0.84375rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.blood-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.blood-pill {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--slate-100);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  transition: all var(--transition-fast);
+}
+
+.blood-pill:hover, .blood-pill.active {
+  background: var(--red-600);
+  border-color: var(--red-600);
+  color: #ffffff;
+}
+
+.blood-stock-badge {
+  background: var(--red-50);
+  border: 1px solid var(--red-200);
+  color: var(--red-700);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.sub-section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.count-pill {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* Pharmacy Quick Pills */
+.quick-searches-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.quick-searches-label {
+  font-size: 0.84375rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.quick-pills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.quick-pill {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--slate-100);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  transition: all var(--transition-fast);
+}
+
+.quick-pill:hover, .quick-pill.active {
+  background: var(--teal-700);
+  border-color: var(--teal-700);
+  color: #ffffff;
+}
+
+.stock-pill {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-size: 0.78125rem;
+}
+
+.med-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 4px;
+}
+
+.brand-sub {
+  color: var(--teal-700);
+  font-weight: 700;
+}
+
+.med-details {
+  font-size: 0.84375rem;
+  color: var(--slate-600);
+  margin-bottom: 12px;
+}
+
+.pharmacy-location-box {
+  background: var(--slate-50);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+.pharmacy-name {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.pharmacy-addr {
+  font-size: 0.78125rem;
+  color: var(--slate-500);
+  margin-top: 2px;
+}
+
+/* Empty State Card */
+.empty-state-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 48px 24px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.empty-state-card.sub-empty {
+  padding: 32px 20px;
+  max-width: 100%;
+}
+
+.empty-state-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.empty-state-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 8px;
+}
+
+.empty-state-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 20px;
+  line-height: 1.5;
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.quick-tags-prompt {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag-link {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+
+.tag-link:hover {
+  background: var(--teal-50);
+  border-color: var(--teal-200);
+  color: var(--teal-800);
+}
+
+/* ==========================================================================
+   About Page
+   ========================================================================== */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.about-card {
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 32px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.about-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.about-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.icon-teal {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+}
+
+.icon-blue {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+}
+
+.icon-red {
+  background: var(--red-50);
+  border: 1px solid var(--red-100);
+}
+
+.about-card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.about-card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.about-vision-section {
+  margin-bottom: 48px;
+}
+
+.vision-card {
+  background: radial-gradient(circle at top right, var(--teal-50), #ffffff 60%);
+  border: 1px solid var(--teal-200);
+  border-radius: var(--radius-xl);
+  padding: 40px 36px;
+  box-shadow: var(--shadow-md);
+}
+
+.vision-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--teal-700);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.vision-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.025em;
+  margin-bottom: 14px;
+}
+
+.vision-text {
+  font-size: 1.05rem;
+  color: var(--slate-700);
+  line-height: 1.65;
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+
+.vision-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Share Page
+   ========================================================================== */
+
+.share-card-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.share-card-printable {
+  background: #ffffff;
+  border: 2px solid var(--teal-700);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+}
+
+.share-card-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--slate-100);
+}
+
+.share-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.25rem;
+  color: var(--teal-800);
+}
+
+.share-badge-pill {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.share-details-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.share-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.share-label {
+  font-weight: 700;
+  color: var(--slate-600);
+}
+
+.share-value {
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.need-chip {
+  background: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  color: var(--teal-800);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.8125rem;
+  margin-left: 4px;
+}
+
+.share-divider {
+  border: 0;
+  border-top: 1px dashed var(--slate-200);
+  margin: 16px 0;
+}
+
+.share-hospital-box {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.share-hosp-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  margin: 4px 0;
+}
+
+.share-hosp-meta {
+  font-size: 0.875rem;
+  color: var(--slate-500);
+  margin-bottom: 14px;
+}
+
+.highlight-phone a {
+  color: var(--teal-700);
+  font-size: 1.1rem;
+}
+
+.share-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Toast Notification */
+.toast-popup {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--slate-900);
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-xl);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 2000;
+}
+
+.toast-popup.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  background-color: var(--slate-900);
+  color: var(--slate-300);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 56px 20px 40px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr;
+  gap: 40px;
+}
+
+.footer-brand .brand-title {
+  color: #ffffff;
+}
+
+.footer-brand .brand-icon {
+  background: linear-gradient(135deg, var(--teal-600), var(--teal-500));
+}
+
+.footer-lead {
+  font-size: 0.925rem;
+  color: var(--slate-300);
+  margin-top: 14px;
+  line-height: 1.55;
+  max-width: 360px;
+}
+
+.footer-sub {
+  font-size: 0.78125rem;
+  color: var(--slate-400);
+  margin-top: 10px;
+  line-height: 1.5;
+  max-width: 360px;
+}
+
+.footer-heading {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 18px;
+}
+
+.footer-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links-grid a {
+  font-size: 0.875rem;
+  color: var(--slate-400);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color var(--transition-fast);
+}
+
+.footer-links-grid a:hover {
+  color: #ffffff;
+}
+
+.link-icon {
+  flex-shrink: 0;
+}
+
+.link-icon-emergency { color: var(--red-500); }
+.link-icon-ambulance { color: var(--red-500); }
+.link-icon-hospital { color: var(--teal-400); }
+.link-icon-blood { color: var(--red-500); }
+.link-icon-medicine { color: var(--teal-400); }
+.link-icon-info { color: var(--blue-400); }
+
+.emergency-box {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.em-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fca5a5;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.em-icon {
+  color: var(--red-400);
+  flex-shrink: 0;
+}
+
+.em-desc {
+  font-size: 0.8125rem;
+  color: var(--slate-300);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.em-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.em-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 20px;
+}
+
+.footer-bottom-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78125rem;
+  color: var(--slate-400);
+}
+
+.bottom-lang-links a {
+  color: var(--slate-400);
+}
+
+.bottom-lang-links a.active, .bottom-lang-links a:hover {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(220, 38, 38, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .emergency-col {
+    grid-column: 1 / -1;
+  }
+
+  .filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-banner {
+    display: none; /* Keep clean on small mobile */
+  }
+
+  .header-call-btn {
+    display: inline-flex;
+  }
+
+  .mobile-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-xl);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 16px 20px 24px;
+    gap: 6px;
+  }
+
+  .site-nav.open {
+    display: flex;
+  }
+
+  .nav-item {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .nav-lang-pill {
+    margin-left: 0;
+    margin-top: 12px;
+    align-self: flex-start;
+  }
+
+  .hero-heading {
+    font-size: 1.85rem;
+  }
+
+  .hero-heading-sub {
+    font-size: 1.2rem;
+  }
+
+  .hero-section {
+    padding: 32px 16px 40px;
+  }
+
+  .quick-scenario-card {
+    padding: 16px 14px;
+  }
+
+  .scenario-item-action {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .btn-scenario-trigger {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .live-triage-card {
+    padding: 16px 14px;
+  }
+
+  .avail-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .avail-metric-card {
+    padding: 8px 10px;
+    min-height: 48px;
+  }
+
+  .intake-card {
+    padding: 24px 18px;
+  }
+
+  .situation-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .filter-grid, .filter-grid-ambulance, .filter-grid-blood, .filter-grid-pharmacy {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .best-actions-row, .empty-actions {
+    flex-direction: column;
+  }
+
+  .best-actions-row .btn, .empty-actions .btn {
+    width: 100%;
+  }
+
+  .progress-stepper {
+    flex-wrap: wrap;
+  }
+}
+
+/* ==========================================================================
+   UI Polish Layer — semantic accents (colors only, no layout changes)
+   ========================================================================== */
+
+/* --- Navbar: subtle per-item semantic treatment --- */
+.nav-item .nav-icon-svg { opacity: 0.9; }
+.nav-item:hover .nav-icon-svg,
+.nav-item.active .nav-icon-svg { opacity: 1; }
+
+.nav-item.nav-home:hover { background: var(--teal-50); color: var(--teal-800); }
+.nav-item.nav-home.active { background: var(--teal-50); color: var(--teal-800); box-shadow: inset 0 -2px 0 var(--teal-600); }
+.nav-item.nav-home.active .nav-icon-svg { color: var(--teal-700); }
+
+.nav-item.nav-emergency:hover { background: var(--red-50); color: var(--red-700); }
+.nav-item.nav-emergency.active { box-shadow: inset 0 -2px 0 var(--red-600); }
+
+.nav-item.nav-hospital:hover { background: var(--teal-50); color: var(--teal-800); }
+.nav-item.nav-hospital.active { background: var(--teal-50); color: var(--teal-800); box-shadow: inset 0 -2px 0 var(--teal-600); }
+
+.nav-item.nav-ambulance:hover { background: var(--red-50); color: var(--red-700); }
+.nav-item.nav-ambulance.active { background: var(--red-50); color: var(--red-700); box-shadow: inset 0 -2px 0 var(--red-600); }
+
+.nav-item.nav-blood:hover { background: var(--red-50); color: var(--red-700); }
+.nav-item.nav-blood.active { background: var(--red-50); color: var(--red-700); box-shadow: inset 0 -2px 0 var(--red-600); }
+
+.nav-item.nav-medicine:hover { background: var(--blue-50); color: var(--blue-700); }
+.nav-item.nav-medicine.active { background: var(--blue-50); color: var(--blue-700); box-shadow: inset 0 -2px 0 var(--blue-600); }
+.nav-item.nav-medicine .nav-icon-svg { color: var(--blue-600); }
+
+.nav-item.nav-about:hover { background: var(--blue-50); color: var(--blue-700); }
+.nav-item.nav-about.active { background: var(--blue-50); color: var(--blue-700); box-shadow: inset 0 -2px 0 var(--blue-600); }
+
+/* --- Process steps: one accent per step --- */
+.step-card { position: relative; overflow: hidden; }
+.step-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--slate-200);
+}
+.step-card:hover { border-color: var(--slate-300); }
+
+.step-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.step-head .step-badge { margin-bottom: 0; }
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
+  background: var(--slate-50);
+  color: var(--slate-500);
+}
+.step-title { letter-spacing: -0.01em; }
+.step-desc { font-size: 0.86rem; }
+
+.step-red::before { background: var(--red-600); }
+.step-red .step-badge { background: var(--red-50); border-color: var(--red-200); color: var(--red-700); }
+.step-red .step-icon { background: var(--red-50); color: var(--red-600); }
+.step-red:hover { border-color: var(--red-200); }
+
+.step-amber::before { background: var(--amber-600); }
+.step-amber .step-badge { background: var(--amber-50); border-color: var(--amber-200); color: var(--amber-700); }
+.step-amber .step-icon { background: var(--amber-50); color: var(--amber-600); }
+.step-amber:hover { border-color: var(--amber-200); }
+
+.step-teal::before { background: var(--teal-600); }
+.step-teal .step-badge { background: var(--teal-50); border-color: var(--teal-200); color: var(--teal-700); }
+.step-teal .step-icon { background: var(--teal-50); color: var(--teal-600); }
+.step-teal:hover { border-color: var(--teal-200); }
+
+.step-green::before { background: var(--green-600); }
+.step-green .step-badge { background: var(--green-50); border-color: var(--green-200); color: var(--green-700); }
+.step-green .step-icon { background: var(--green-50); color: var(--green-600); }
+.step-green:hover { border-color: var(--green-200); }
+
+.step-blue::before { background: var(--blue-600); }
+.step-blue .step-badge { background: var(--blue-50); border-color: var(--blue-100); color: var(--blue-700); }
+.step-blue .step-icon { background: var(--blue-50); color: var(--blue-600); }
+.step-blue:hover { border-color: var(--blue-100); }
+
+/* --- Feature cards: semantic accent --- */
+.feature-card { border-top: 3px solid var(--slate-200); }
+.feature-card.feature-teal { border-top-color: var(--teal-600); }
+.feature-card.feature-blue { border-top-color: var(--blue-600); }
+.feature-card.feature-amber { border-top-color: var(--amber-600); }
+.feature-card.feature-teal:hover { border-color: var(--teal-200); border-top-color: var(--teal-600); }
+.feature-card.feature-blue:hover { border-color: var(--blue-100); border-top-color: var(--blue-600); }
+.feature-card.feature-amber:hover { border-color: var(--amber-200); border-top-color: var(--amber-600); }
+.feat-teal { color: var(--teal-700); }
+.feat-blue { color: var(--blue-700); }
+.feat-red { color: var(--red-700); }
+.feat-amber { background: var(--amber-50); border: 1px solid var(--amber-200); color: var(--amber-700); }
+.feature-title { letter-spacing: -0.015em; }
+
+/* --- Hospital cards: scanning hierarchy --- */
+.facility-card-title { letter-spacing: -0.015em; }
+.facility-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.meta-icon { color: var(--blue-600); flex-shrink: 0; }
+.chip-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.chip-sm svg { flex-shrink: 0; }
+.type-tag.tag-government {
+  background: var(--blue-50);
+  border-color: var(--blue-100);
+  color: var(--blue-700);
+}
+.type-tag.tag-private {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+.facility-services-box {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-100);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+.services-tag { letter-spacing: 0.04em; }
+.btn-call svg, .btn-outline svg, .btn-call-primary svg, .btn-directions-primary svg { flex-shrink: 0; }
+.btn-icon-inline { display: inline-flex; vertical-align: middle; margin-right: 4px; }
+
+/* Best / suitable emphasis */
+.facility-card.card-suitable { border-left: 3px solid var(--green-600); }
+.facility-card.card-unsuitable { background: var(--slate-50); }
+.facility-card.card-unsuitable .facility-card-title { color: var(--slate-700); }
+
+/* --- Blood group pills: single red family, strong selected state --- */
+.blood-pill {
+  min-width: 54px;
+  padding: 7px 12px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid var(--red-200);
+  color: var(--red-700);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.blood-pill:hover {
+  background: var(--red-50);
+  border-color: var(--red-500);
+  color: var(--red-700);
+}
+.blood-pill.active {
+  background: var(--red-600);
+  border-color: var(--red-700);
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(220, 38, 38, 0.3);
+}
+.blood-pill.active:hover { background: var(--red-700); color: #ffffff; }
+.blood-pill:focus-visible { outline: 2px solid var(--red-600); outline-offset: 2px; }
+.blood-pills-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.78125rem;
+  color: var(--slate-500);
+}
+.blood-pills-label svg { color: var(--red-600); }
+
+/* --- Filter labels with inline icons --- */
+.filter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-label svg { color: var(--slate-400); flex-shrink: 0; }
+
+/* --- Inline SVG alignment for icons that replaced text glyphs --- */
+.status-icon, .check-icon, .criteria-chip, .badge-star, .btn-icon,
+.reason-pill, .best-distance-pill, .area-text, .phone-link a,
+.step-circle, .urgency-icon, .sub-section-title, .rationale-heading,
+.map-title, .blood-pills-label, .empty-state-icon, .facility-card-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.rationale-list li { display: flex; align-items: center; gap: 8px; }
+.best-facility-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.facility-card-actions .btn { display: inline-flex; align-items: center; gap: 6px; }
+.empty-state-icon { justify-content: center; color: var(--slate-400); }
+.sub-section-title svg { color: var(--teal-700); }
+.rationale-heading svg { color: var(--amber-600); }
+.map-title svg { color: var(--blue-600); }
+.check-icon, .status-icon { color: var(--green-600); }
+.reason-pill svg { color: var(--amber-600); }
+
+/* ==========================================================================
+   Final Consistency Layer — one product, one visual language
+   (visual polish only: icon sizing, card rhythm, typography, responsive)
+   ========================================================================== */
+
+/* --- Shared icon family: single size/weight/colour behaviour everywhere --- */
+.lr-ic {
+  flex-shrink: 0;
+  vertical-align: -0.14em;
+}
+
+.input-label, .filter-label, .quick-searches-label, .blood-pills-label,
+.pharmacy-name, .pharmacy-addr, .share-value, .need-chip, .badge-icon,
+.btn-icon, .btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-label .lr-ic, .filter-label .lr-ic,
+.quick-searches-label .lr-ic, .blood-pills-label .lr-ic { color: var(--teal-700); }
+.pharmacy-addr .lr-ic, .facility-card-meta .lr-ic, .share-hosp-meta .lr-ic { color: var(--slate-400); }
+.empty-state-icon .lr-ic { color: var(--teal-600); }
+.sub-section-title .lr-ic { color: var(--teal-700); }
+.disclaimer-icon .lr-ic { color: var(--amber-600); }
+
+/* --- Situation tiles: icon badge instead of loose glyph --- */
+.situation-icon {
+  font-size: inherit;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 10px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--slate-100);
+  color: var(--slate-700);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.situation-card:hover .situation-icon { background: var(--teal-50); color: var(--teal-700); }
+.situation-card.selected .situation-icon { background: var(--teal-100); color: var(--teal-800); }
+
+.situation-card.selected .situation-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- About pillars: same icon badge language as the rest of the product --- */
+.about-card-icon { font-size: inherit; }
+.about-card-icon .lr-ic { width: 22px; height: 22px; }
+
+/* --- Progress stepper: icon-sized check states --- */
+.step-circle .lr-ic { width: 13px; height: 13px; }
+
+/* --- Section headings: consistent hierarchy across directories --- */
+.sub-section-title {
+  font-size: 1.15rem;
+  letter-spacing: -0.015em;
+}
+
+.section-title-row {
+  margin-bottom: 14px;
+}
+
+.blood-section + .blood-section,
+.nearby-section {
+  margin-top: 36px;
+}
+
+/* --- Cards: equal-height rhythm and non-wrapping header meta --- */
+.cards-grid, .facilities-grid { align-items: stretch; }
+
+.facility-card-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+}
+
+.facility-card-top .facility-card-title { min-width: 0; }
+
+.type-tag, .blood-stock-badge {
+  white-space: nowrap;
+  align-self: start;
+}
+
+.best-badge {
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.facility-card { padding: 20px 20px 18px; }
+
+/* --- Buttons: one consistent touch size and weight --- */
+.btn { min-height: 42px; }
+.btn-sm, .btn-danger-sm, .btn-teal-sm { min-height: 34px; }
+
+.btn-outline { box-shadow: var(--shadow-xs); }
+.btn-outline:hover { box-shadow: var(--shadow-sm); }
+.btn-call { box-shadow: var(--shadow-xs); font-weight: 700; }
+
+.facility-card-actions .btn { flex: 1 1 auto; }
+.facility-card-actions .btn-outline { color: var(--slate-700); }
+
+/* --- Empty states: intentional, branded, not a blank slab --- */
+.empty-state-card {
+  background:
+    radial-gradient(120% 100% at 50% 0%, var(--teal-50) 0%, #ffffff 62%);
+  border-color: var(--teal-100);
+  padding: 40px 28px;
+  box-shadow: var(--shadow-md);
+}
+
+.empty-state-icon {
+  font-size: inherit;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-full);
+  background: #ffffff;
+  border: 1px solid var(--teal-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.empty-state-title { font-size: 1.2rem; }
+
+.empty-state-desc {
+  max-width: 44ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- Page canvas: soft branded wash so short pages never read as dead space --- */
+.site-main {
+  background:
+    radial-gradient(1100px 460px at 50% -160px, rgba(13, 148, 136, 0.07), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-page) 340px);
+}
+
+.page-container { padding: 32px 20px 72px; }
+.page-header { margin-bottom: 28px; }
+
+/* --- Responsive repairs --- */
+@media (max-width: 768px) {
+  .page-container { padding: 24px 16px 56px; }
+
+  .page-title { font-size: 1.7rem; }
+  .page-subtitle { font-size: 0.98rem; }
+
+  .facility-card-top {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .type-tag, .blood-stock-badge { justify-self: start; }
+
+  .best-badge { width: 100%; justify-content: center; }
+
+  .facility-card-actions { flex-direction: column; }
+  .facility-card-actions .btn { width: 100%; justify-content: flex-start; }
+
+  .filter-actions-item { flex-direction: row; }
+  .filter-actions-item .btn-filter-submit { flex: 1 1 auto; }
+
+  .sub-section-title { font-size: 1.05rem; }
+
+  .empty-state-card { padding: 32px 20px; }
+
+  .share-actions-row { flex-direction: column; }
+  .share-actions-row .btn { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .situation-grid { gap: 10px; }
+  .situation-icon { width: 38px; height: 38px; }
+  .cards-grid, .facilities-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   LifeRoute — Depth & Page-Identity Layer
+   Layered canvases, tinted page heroes, semantic cards, status system.
+   Presentation only: no markup contract beyond additive classes.
+   ========================================================================== */
+
+:root {
+  --crimson-600: #be123c;
+  --crimson-700: #9f1239;
+  --crimson-800: #881337;
+  --navy-950: #0b1220;
+  --blue-200: #bfdbfe;
+  --blue-300: #93c5fd;
+  --blue-800: #1e40af;
+}
+
+/* --- Page canvases: each surface gets a soft, distinct wash --- */
+.site-main {
+  background:
+    radial-gradient(1100px 460px at 50% -180px, rgba(13, 148, 136, 0.08), transparent 70%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-page) 320px);
+}
+
+.page-emergency,
+.page-hospitals,
+.page-blood,
+.page-pharmacy,
+.page-ambulance {
+  position: relative;
+}
+
+.page-emergency::before,
+.page-hospitals::before,
+.page-blood::before,
+.page-pharmacy::before,
+.page-ambulance::before {
+  content: "";
+  position: absolute;
+  inset: -40px -50vw 40%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.page-emergency::before { background: linear-gradient(180deg, #fff5f5 0%, rgba(255, 255, 255, 0) 100%); }
+.page-hospitals::before { background: linear-gradient(180deg, #f0fdfa 0%, rgba(255, 255, 255, 0) 100%); }
+.page-blood::before     { background: linear-gradient(180deg, #fff1f2 0%, rgba(255, 255, 255, 0) 100%); }
+.page-pharmacy::before  { background: linear-gradient(180deg, #eff6ff 0%, rgba(255, 255, 255, 0) 100%); }
+.page-ambulance::before { background: linear-gradient(180deg, #fef2f2 0%, rgba(255, 255, 255, 0) 100%); }
+
+/* --- Page hero band: replaces bare white page headers --- */
+.page-hero {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 34px 28px 30px;
+  margin-bottom: 26px;
+  border: 1px solid transparent;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.page-hero .page-title { color: #ffffff; }
+.page-hero .page-subtitle { color: rgba(241, 245, 249, 0.86); }
+
+.page-hero .header-badge {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+}
+
+.hero-icon-badge {
+  display: grid;
+  margin-left: auto;
+  margin-right: auto;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  color: #ffffff;
+}
+
+.hero-emergency {
+  background:
+    radial-gradient(680px 220px at 82% -10%, rgba(220, 38, 38, 0.42), transparent 70%),
+    linear-gradient(140deg, var(--slate-900) 0%, var(--navy-950) 60%, #1b1024 100%);
+  border-color: rgba(220, 38, 38, 0.35);
+}
+.hero-emergency .hero-icon-badge {
+  background: rgba(220, 38, 38, 0.28);
+  border-color: rgba(248, 113, 113, 0.5);
+  color: #fecaca;
+}
+
+.hero-hospital {
+  background:
+    radial-gradient(620px 220px at 85% -20%, rgba(94, 234, 212, 0.32), transparent 70%),
+    linear-gradient(140deg, var(--teal-900) 0%, var(--teal-800) 55%, #0e3f45 100%);
+  border-color: rgba(20, 184, 166, 0.35);
+}
+
+.hero-blood {
+  background:
+    radial-gradient(620px 220px at 85% -20%, rgba(251, 113, 133, 0.3), transparent 70%),
+    linear-gradient(140deg, var(--crimson-800) 0%, var(--crimson-700) 55%, #5b1023 100%);
+  border-color: rgba(190, 18, 60, 0.4);
+}
+
+.hero-pharmacy {
+  background:
+    radial-gradient(620px 220px at 85% -20%, rgba(45, 212, 191, 0.28), transparent 70%),
+    linear-gradient(140deg, #12324f 0%, var(--blue-800) 55%, #0f4a52 100%);
+  border-color: rgba(37, 99, 235, 0.35);
+}
+
+.hero-ambulance {
+  background:
+    radial-gradient(620px 220px at 85% -20%, rgba(248, 113, 113, 0.34), transparent 70%),
+    linear-gradient(140deg, #4c0519 0%, var(--red-700) 58%, #7f1d1d 100%);
+  border-color: rgba(220, 38, 38, 0.45);
+}
+
+.hero-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-hero-emergency {
+  background: #ffffff;
+  color: var(--red-700);
+  border-color: #ffffff;
+  padding: 14px 26px;
+  font-size: 1.02rem;
+  min-height: 52px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+.btn-hero-emergency:hover {
+  background: var(--red-50);
+  color: var(--red-700);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
+}
+
+/* Emergency triage hero keeps the stepper legible on a dark band */
+.page-hero .progress-stepper { margin-top: 22px; }
+.page-hero .step-label { color: rgba(226, 232, 240, 0.8); }
+.page-hero .step-circle {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.26);
+  color: rgba(255, 255, 255, 0.72);
+}
+.page-hero .step-item.active .step-circle {
+  background: var(--red-600);
+  border-color: var(--red-500);
+  color: #ffffff;
+}
+.page-hero .step-item.active .step-label { color: #ffffff; }
+.page-hero .step-connector { background: rgba(255, 255, 255, 0.18); }
+
+/* --- Metric strip: large numbers, small labels --- */
+.metric-strip {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metric-tile {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-md);
+  padding: 12px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  color: #ffffff;
+}
+
+.metric-ic { color: rgba(255, 255, 255, 0.66); }
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.metric-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.78);
+  text-align: center;
+}
+
+.metric-emergency .metric-value { color: #fecaca; }
+.metric-icu .metric-value { color: #99f6e4; }
+.metric-beds .metric-value { color: #bbf7d0; }
+
+/* --- Filter surfaces: tinted control panels, not plain white slabs --- */
+.filter-card-themed {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border-color: var(--slate-200);
+  background: linear-gradient(180deg, #ffffff 0%, #fcfdfe 100%);
+  position: relative;
+}
+
+.filter-card-themed::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: 18px; right: 18px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+}
+
+.page-hospitals .filter-card-themed::before { background: var(--teal-600); }
+.page-blood .filter-card-themed::before { background: var(--crimson-600); }
+.page-pharmacy .filter-card-themed::before { background: var(--blue-600); }
+.page-ambulance .filter-card-themed::before { background: var(--red-600); }
+
+.filter-input, .filter-select {
+  background: var(--slate-50);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  min-height: 44px;
+  color: var(--slate-900);
+  transition: all var(--transition-fast);
+}
+
+.filter-input:focus, .filter-select:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14);
+}
+
+.page-blood .filter-input:focus, .page-blood .filter-select:focus {
+  border-color: var(--crimson-600);
+  box-shadow: 0 0 0 3px rgba(190, 18, 60, 0.14);
+}
+
+.page-pharmacy .filter-input:focus, .page-pharmacy .filter-select:focus {
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.14);
+}
+
+/* --- Facility cards: semantic accent, identity avatar, hover lift --- */
+.facility-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.facility-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--slate-300);
+}
+
+.facility-ident {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.facility-avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  background: var(--teal-50);
+  border: 1px solid var(--teal-100);
+  color: var(--teal-700);
+}
+
+.page-ambulance .facility-avatar {
+  background: var(--red-50);
+  border-color: var(--red-100);
+  color: var(--red-700);
+}
+
+.hospital-item { border-left: 3px solid var(--teal-600); }
+.blood-card, .donor-card { border-left: 3px solid var(--crimson-600); }
+.pharmacy-card { border-left: 3px solid var(--blue-600); }
+.ambulance-item { border-left: 3px solid var(--red-600); }
+
+.facility-card-suitable {
+  border-color: var(--teal-300);
+  border-left-width: 4px;
+  background: linear-gradient(180deg, var(--teal-50) 0%, #ffffff 78px);
+  box-shadow: 0 6px 18px rgba(15, 118, 110, 0.12);
+}
+
+.card-flag {
+  display: inline-flex;
+  width: auto;
+  align-self: flex-start;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.flag-teal {
+  background: var(--teal-700);
+  color: #ffffff;
+}
+
+/* Availability chips read as status, not decoration */
+.chip-sm {
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.chip-green { background: var(--green-50); color: var(--green-700); border: 1px solid var(--green-200); }
+.chip-red { background: var(--red-50); color: var(--red-700); border: 1px solid var(--red-200); }
+.chip-teal { background: var(--teal-50); color: var(--teal-800); border: 1px solid var(--teal-200); }
+.chip-gray { background: var(--slate-100); color: var(--slate-600); border: 1px solid var(--slate-200); }
+.chip-crimson { background: #fff1f2; color: var(--crimson-700); border: 1px solid #fecdd3; }
+
+.tag-government { background: var(--teal-50); color: var(--teal-800); border: 1px solid var(--teal-200); }
+.tag-private { background: var(--blue-50); color: var(--blue-800); border: 1px solid var(--blue-200); }
+
+/* --- Blood group selector: large semantic tiles --- */
+.blood-selector {
+  display: block;
+  border-bottom: 1px solid var(--slate-100);
+  padding-bottom: 18px;
+}
+
+.blood-selector .blood-pills-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--crimson-700);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.75rem;
+  margin-bottom: 12px;
+}
+
+.blood-selector .blood-pills-list {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.blood-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 12px 6px;
+  border-radius: var(--radius-md);
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: var(--crimson-700);
+  font-weight: 800;
+  transition: all var(--transition-fast);
+}
+
+.blood-tile .blood-tile-ic { color: rgba(190, 18, 60, 0.6); }
+.blood-tile-label { font-size: 1.0625rem; letter-spacing: -0.01em; }
+
+.blood-tile:hover {
+  background: #ffe4e6;
+  border-color: #fda4af;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.blood-tile.active {
+  background: var(--crimson-700);
+  border-color: var(--crimson-800);
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(159, 18, 57, 0.28);
+}
+
+.blood-tile.active .blood-tile-ic { color: rgba(255, 255, 255, 0.8); }
+
+/* --- Section rhythm on directory pages --- */
+.blood-section, .pharmacy-results-section {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+  box-shadow: var(--shadow-xs);
+  margin-bottom: 26px;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.count-pill {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  color: var(--slate-700);
+  border-radius: var(--radius-full);
+  padding: 2px 10px;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+/* --- Emergency triage form: grouped, tactile, red-accented --- */
+.page-emergency .intake-card {
+  border-radius: var(--radius-lg);
+  border-color: var(--slate-200);
+  box-shadow: var(--shadow-lg);
+  background:
+    linear-gradient(180deg, #fffafa 0%, #ffffff 120px);
+}
+
+.page-emergency .legend-num { background: var(--red-600); }
+.page-emergency .fieldset-legend {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.page-emergency .form-inputs-grid .form-group {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 12px 12px 13px;
+}
+
+.page-emergency .form-select {
+  background: #ffffff;
+  min-height: 44px;
+}
+
+.page-emergency .situation-card-inner {
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.page-emergency .situation-card:hover .situation-card-inner {
+  border-color: var(--red-200);
+  background: var(--red-50);
+  transform: translateY(-1px);
+}
+
+.page-emergency .situation-card.selected .situation-card-inner {
+  border-color: var(--red-600);
+  background: var(--red-50);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.18);
+}
+
+.page-emergency .situation-card.selected .situation-icon {
+  background: var(--red-600);
+  border-color: var(--red-600);
+  color: #ffffff;
+}
+
+.btn-emergency-submit {
+  background: var(--red-600);
+  color: #ffffff;
+  border-color: var(--red-700);
+  min-height: 54px;
+  padding: 15px 30px;
+  font-size: 1.05rem;
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.28);
+}
+
+.btn-emergency-submit:hover {
+  background: var(--red-700);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(220, 38, 38, 0.34);
+}
+
+.page-emergency .autofill-banner {
+  background: linear-gradient(180deg, #ffffff, var(--slate-50));
+  border-color: var(--slate-200);
+}
+
+/* --- Pharmacy identity --- */
+.page-pharmacy .facility-avatar,
+.pharmacy-card .facility-avatar {
+  background: var(--blue-50);
+  border-color: var(--blue-100);
+  color: var(--blue-700);
+}
+
+.page-pharmacy .btn-primary,
+.page-pharmacy .btn-call-primary {
+  background-color: var(--blue-700);
+  border-color: var(--blue-700);
+  box-shadow: 0 1px 3px rgba(29, 78, 216, 0.22);
+}
+
+.page-pharmacy .btn-primary:hover,
+.page-pharmacy .btn-call-primary:hover { background-color: var(--blue-800); border-color: var(--blue-800); }
+
+.med-info-box {
+  background: var(--blue-50);
+  border: 1px solid var(--blue-100);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.pharmacy-location-box {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+/* --- Blood / ambulance action colours --- */
+.page-blood .btn-primary,
+.page-blood .btn-call-primary {
+  background-color: var(--crimson-700);
+  border-color: var(--crimson-700);
+}
+.page-blood .btn-primary:hover,
+.page-blood .btn-call-primary:hover { background-color: var(--crimson-800); border-color: var(--crimson-800); }
+
+.blood-stock-badge {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: var(--crimson-700);
+  border-radius: var(--radius-sm);
+  padding: 4px 9px;
+  font-size: 0.78125rem;
+  font-weight: 700;
+}
+
+.page-ambulance .btn-primary,
+.page-ambulance .btn-call-primary {
+  background-color: var(--red-600);
+  border-color: var(--red-700);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.24);
+}
+.page-ambulance .btn-primary:hover,
+.page-ambulance .btn-call-primary:hover { background-color: var(--red-700); }
+
+.page-ambulance .btn-call {
+  background: var(--red-50);
+  border-color: var(--red-200);
+  color: var(--red-700);
+}
+.page-ambulance .btn-call:hover { background: var(--red-100); border-color: var(--red-500); }
+
+/* --- Empty states inherit the page identity --- */
+.page-blood .empty-state-card {
+  background: radial-gradient(120% 100% at 50% 0%, #fff1f2 0%, #ffffff 62%);
+  border-color: #fecdd3;
+}
+.page-blood .empty-state-icon { border-color: #fecdd3; color: var(--crimson-700); }
+
+.page-pharmacy .empty-state-card {
+  background: radial-gradient(120% 100% at 50% 0%, var(--blue-50) 0%, #ffffff 62%);
+  border-color: var(--blue-100);
+}
+.page-pharmacy .empty-state-icon { border-color: var(--blue-100); color: var(--blue-700); }
+
+/* --- Responsive: heroes, metrics, blood tiles --- */
+@media (max-width: 900px) {
+  .blood-selector .blood-pills-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .metric-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 768px) {
+  .page-hero { padding: 26px 18px 24px; border-radius: var(--radius-lg); }
+  .hero-icon-badge { width: 46px; height: 46px; }
+  .metric-value { font-size: 1.3rem; }
+  .blood-section, .pharmacy-results-section { padding: 16px 14px; }
+  .section-title-row { flex-wrap: wrap; }
+  .btn-hero-emergency { width: 100%; }
+  .facility-ident { align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .blood-selector .blood-pills-list { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .blood-tile { padding: 10px 4px; }
+  .blood-tile-label { font-size: 0.95rem; }
+  .page-hero .page-title { font-size: 1.55rem; }
+}
+
+/* --- Result / status badges shared across directories --- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-teal { background: var(--green-50); color: var(--green-700); border: 1px solid var(--green-200); }
+.badge-featured { background: var(--teal-700); color: #ffffff; border: 1px solid var(--teal-800); }
+.page-pharmacy .badge-featured { background: var(--blue-700); border-color: var(--blue-800); }
+
+.stock-pill {
+  background: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  color: var(--slate-700);
+  border-radius: var(--radius-sm);
+  padding: 3px 9px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.stock-pill strong { color: var(--green-700); }
+
+/* Cards keep their actions pinned to the bottom for an even grid rhythm */
+.facility-card { display: flex; flex-direction: column; }
+.facility-card-actions { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* Ambulance page: the nearest available unit reads red, not teal */
+.page-ambulance .ambulance-best-card {
+  border-color: var(--red-500);
+  border-left-color: var(--red-600);
+  background: radial-gradient(circle at top right, var(--red-50), #ffffff 70%);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.14);
+}
+
+.page-ambulance .best-badge.ambulance-badge {
+  background: var(--red-600);
+  border-color: var(--red-700);
+  color: #ffffff;
+}
+
+/* Blood cards: chip row spacing */
+.blood-card .facility-chips, .facility-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+
+/* --- Result page: make the decision rationale read as the key explanation --- */
+.match-reasons, .why-panel {
+  background: var(--green-50);
+  border: 1px solid var(--green-200);
+  border-left: 4px solid var(--teal-700);
+  border-radius: var(--radius-md);
+}
+
+.match-reasons h3, .why-panel h3 {
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--teal-800);
+}
+
+/* Badges sit tight to their label instead of stretching across the card head */
+.badge { flex: 0 0 auto; align-self: center; width: auto; }
+
+.facility-card-top > .badge { justify-self: start; }
+
+.facility-card > .best-badge,
+.facility-card-top > .best-badge { justify-self: start; align-self: start; width: auto; }

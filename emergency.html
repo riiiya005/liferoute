@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import ic %}
+
+{% block title %}{{ t.emergency }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container triage-page page-emergency">
+  <!-- Page Header -->
+  <header class="page-header page-hero hero-emergency text-center">
+    <span class="hero-icon-badge">{{ ic('cross', 26) }}</span>
+    <div class="header-badge">
+      <span>{{ t.intake_eyebrow }}</span>
+    </div>
+    <h1 class="page-title">{{ t.intake_title }}</h1>
+    <p class="page-subtitle">{{ t.intake_subtitle }}</p>
+
+
+    <!-- Progress Indicator Bar -->
+    <div class="progress-stepper" role="progressbar" aria-label="Triage Progress">
+      <div class="step-item active">
+        <span class="step-circle">1</span>
+        <span class="step-label">{{ t.progress_step_1 }}</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item active">
+        <span class="step-circle">2</span>
+        <span class="step-label">{{ t.progress_step_2 }}</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item">
+        <span class="step-circle">3</span>
+        <span class="step-label">{{ t.progress_step_3 }}</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-item">
+        <span class="step-circle">4</span>
+        <span class="step-label">{{ t.progress_step_4 }}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Quick Demo Autofill Bar -->
+  <div class="autofill-banner">
+    <div class="autofill-text">
+      {{ ic('bolt', 15) }}
+      <span>{{ t.try_demo }}</span>
+    </div>
+    <button type="button" class="btn btn-autofill" onclick="fillDemoScenario()">
+      {{ t.try_demo.split(':')[0] }}
+    </button>
+  </div>
+
+  <!-- Intake Form Card -->
+  <div class="intake-card">
+    <form class="assessment-form" id="triageForm" action="/match" method="POST">
+      
+      <!-- Section 1: Emergency Situation -->
+      <fieldset class="form-fieldset">
+        <legend class="fieldset-legend">
+          <span class="legend-num">1</span>
+          <span class="legend-text">{{ t.legend_situation }}</span>
+        </legend>
+
+        <div class="situation-grid">
+          {% set situations = [
+            ('accident', t.sit_accident, 'car'),
+            ('bleeding', t.sit_bleeding, 'blood'),
+            ('breathing', t.sit_breathing, 'lungs'),
+            ('chest', t.sit_chest, 'heart'),
+            ('pregnancy', t.sit_pregnancy, 'baby'),
+            ('burn', t.sit_burn, 'flame'),
+            ('unconscious', t.sit_unconscious, 'brain'),
+            ('other', t.sit_other, 'help')
+          ] %}
+          
+          {% for key, label, icon in situations %}
+            <label class="situation-card" id="card_{{ key }}">
+              <input type="radio" name="situation" value="{{ key }}" required {% if key == 'accident' %}checked{% endif %} onchange="updateSituationSelection()">
+              <div class="situation-card-inner">
+                <span class="situation-icon">{{ ic(icon, 24) }}</span>
+                <span class="situation-title">{{ label }}</span>
+                <span class="situation-check">{{ ic('check', 12) }}</span>
+              </div>
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <hr class="form-divider">
+
+      <!-- Section 2: Quick Vital Details -->
+      <fieldset class="form-fieldset">
+        <legend class="fieldset-legend">
+          <span class="legend-num">2</span>
+          <span class="legend-text">{{ t.legend_details }}</span>
+        </legend>
+
+        <div class="form-inputs-grid">
+          <!-- Area -->
+          <div class="form-group">
+            <label for="select_area" class="input-label">{{ ic('pin', 14) }} <span>{{ t.label_area }}</span></label>
+            <select name="area" id="select_area" class="form-select" required>
+              {% for a in areas %}
+                <option value="{{ a }}" {% if a == 'Uttara' %}selected{% endif %}>{{ t_area(a) }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <!-- Conscious -->
+          <div class="form-group">
+            <label for="select_conscious" class="input-label">{{ ic('brain', 14) }} <span>{{ t.label_conscious }}</span></label>
+            <select name="conscious" id="select_conscious" class="form-select">
+              <option value="yes">{{ t.opt_conscious_yes }}</option>
+              <option value="no">{{ t.opt_conscious_no }}</option>
+            </select>
+          </div>
+
+          <!-- Breathing -->
+          <div class="form-group">
+            <label for="select_breathing" class="input-label">{{ ic('lungs', 14) }} <span>{{ t.label_breathing }}</span></label>
+            <select name="breathing" id="select_breathing" class="form-select">
+              <option value="no">{{ t.opt_breathing_no }}</option>
+              <option value="yes">{{ t.opt_breathing_yes }}</option>
+            </select>
+          </div>
+
+          <!-- Bleeding -->
+          <div class="form-group">
+            <label for="select_bleeding" class="input-label">{{ ic('blood', 14) }} <span>{{ t.label_bleeding }}</span></label>
+            <select name="bleeding" id="select_bleeding" class="form-select">
+              <option value="no">{{ t.opt_bleeding_no }}</option>
+              <option value="yes">{{ t.opt_bleeding_yes }}</option>
+            </select>
+          </div>
+
+          <!-- Chest Pain -->
+          <div class="form-group">
+            <label for="select_chest" class="input-label">{{ ic('heart', 14) }} <span>{{ t.label_chest }}</span></label>
+            <select name="chest" id="select_chest" class="form-select">
+              <option value="no">{{ t.opt_chest_no }}</option>
+              <option value="yes">{{ t.opt_chest_yes }}</option>
+            </select>
+          </div>
+
+          <!-- Blood Group -->
+          <div class="form-group">
+            <label for="select_blood" class="input-label">{{ ic('syringe', 14) }} <span>{{ t.label_blood }}</span></label>
+            <select name="blood" id="select_blood" class="form-select">
+              <option value="">{{ t.opt_blood_unknown }}</option>
+              {% for g in ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] %}
+                <option value="{{ g }}">{{ g }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Submit Action -->
+      <div class="form-submit-row">
+        <button type="submit" class="btn btn-emergency-submit">
+          <span>{{ t.find_care }}</span>
+          <span class="btn-arrow">{{ ic('arrow-right', 16) }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function updateSituationSelection() {
+  document.querySelectorAll('.situation-card').forEach(card => {
+    const input = card.querySelector('input[type="radio"]');
+    if (input && input.checked) {
+      card.classList.add('selected');
+    } else {
+      card.classList.remove('selected');
+    }
+  });
+}
+
+function fillDemoScenario() {
+  const accidentRadio = document.querySelector('input[value="accident"]');
+  if (accidentRadio) {
+    accidentRadio.checked = true;
+    updateSituationSelection();
+  }
+  document.getElementById('select_area').value = 'Uttara';
+  document.getElementById('select_conscious').value = 'yes';
+  document.getElementById('select_breathing').value = 'yes';
+  document.getElementById('select_bleeding').value = 'yes';
+  document.getElementById('select_chest').value = 'no';
+  document.getElementById('select_blood').value = 'O+';
+}
+
+document.addEventListener('DOMContentLoaded', updateSituationSelection);
+</script>
+{% endblock %}

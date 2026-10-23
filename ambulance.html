@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import ic %}
+
+{% block title %}{{ t.ambulance }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container directory-page page-ambulance">
+  <!-- Header Section -->
+  <header class="page-header page-hero hero-ambulance text-center">
+    <span class="hero-icon-badge">{{ ic('ambulance', 26) }}</span>
+    <div class="header-badge">
+      <span>{{ t.ambulance_eyebrow }}</span>
+    </div>
+    <h1 class="page-title">{{ t.ambulance_title }}</h1>
+    <p class="page-subtitle">{{ t.ambulance_subtitle }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-hero-emergency" href="tel:999">
+        {{ ic('phone', 17) }}<span>{{ t.call_now }} 999</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Filter & Area Selection Card -->
+  <div class="filter-card filter-card-themed">
+    <form class="filter-form" action="/ambulance" method="GET">
+      <div class="filter-grid filter-grid-ambulance">
+        <!-- Area Selector -->
+        <div class="filter-item">
+          <label class="filter-label" for="area">{{ ic('pin', 14) }} <span>{{ t.filter_select_area }}</span></label>
+          <select id="area" name="area" class="filter-select">
+            {% for a in areas %}
+              <option value="{{ a }}" {% if area == a %}selected{% endif %}>{{ t_area(a) }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Sort -->
+        <div class="filter-item">
+          <label class="filter-label" for="sort">{{ ic('sort', 14) }} <span>{{ t.filter_sort }}</span></label>
+          <select id="sort" name="sort" class="filter-select">
+            {% for s in ['Nearest', 'Available Now', 'Area'] %}
+              <option value="{{ s }}" {% if sort == s %}selected{% endif %}>{{ t_sort(s) }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="filter-actions-item">
+          <button type="submit" class="btn btn-primary btn-filter-submit">
+            <span>{{ t.find_nearest_ambulance }}</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Ambulance Services Directory Grid -->
+  <div class="cards-grid ambulance-grid">
+    {% for x in services %}
+      {% set is_best = (nearest and x.id == nearest.id) %}
+      <article class="facility-card ambulance-item {% if is_best %}ambulance-best-card{% endif %}">
+        {% if is_best %}
+          <div class="best-badge ambulance-badge">
+            <span class="badge-icon">{{ ic('ambulance', 14) }}</span>
+            <span>{{ t.nearest_available }}</span>
+          </div>
+        {% endif %}
+
+        <div class="facility-card-top">
+          <div class="facility-ident">
+            <span class="facility-avatar">{{ ic('ambulance', 18) }}</span>
+            <h2 class="facility-card-title">{{ x.service_name }}</h2>
+          </div>
+          <span class="type-tag">{{ t_service_type(x.service_type) }}</span>
+        </div>
+
+        <p class="facility-card-meta">
+          {{ ic('pin', 13) }} {{ t_area(x.area) }} <span class="meta-sep">·</span> {{ t_num(x.distance) }} {{ t.km_away }}
+        </p>
+
+        <div class="facility-chips">
+          {% if x.availability_status %}
+            <span class="chip-sm chip-green">
+              <span class="pulse-dot-green"></span>
+              {{ t.available_now }}
+            </span>
+          {% else %}
+            <span class="chip-sm chip-gray">
+              {{ t.currently_unavailable }}
+            </span>
+          {% endif %}
+        </div>
+
+        <div class="facility-card-actions ambulance-actions">
+          <a class="btn {% if is_best %}btn-call-primary{% else %}btn-call{% endif %}" href="tel:{{ x.phone_number }}">
+            {{ ic('phone', 15) }}<span>{{ t.call_now }} ({{ x.phone_number }})</span>
+          </a>
+          {% if x.alternate_phone %}
+            <a class="btn btn-outline" href="tel:{{ x.alternate_phone }}">
+              {{ ic('phone', 15) }}<span>{{ t.alt_phone }}: {{ x.alternate_phone }}</span>
+            </a>
+          {% endif %}
+          <a class="btn btn-outline" target="_blank" rel="noopener noreferrer" href="{{ maps_url(x.lat, x.lng, area) }}">
+            {{ ic('route', 15) }}<span>{{ t.open_route_maps }}</span>
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import ic %}
+
+{% block title %}{{ t.about }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container about-page">
+  <!-- Header Section -->
+  <header class="page-header text-center">
+    <div class="header-badge">
+      <span>{{ t.about_eyebrow }}</span>
+    </div>
+    <h1 class="page-title">{{ t.about_title }}</h1>
+    <p class="page-subtitle max-w-700">{{ t.about_lead }}</p>
+  </header>
+
+  <!-- Core Pillars Grid -->
+  <div class="about-grid">
+    <article class="about-card">
+      <div class="about-card-icon icon-teal">
+        {{ ic('users', 20) }}
+      </div>
+      <h2 class="about-card-title">{{ t.about_p1_title }}</h2>
+      <p class="about-card-desc">{{ t.about_p1_desc }}</p>
+    </article>
+
+    <article class="about-card">
+      <div class="about-card-icon icon-blue">
+        {{ ic('scale', 20) }}
+      </div>
+      <h2 class="about-card-title">{{ t.about_p2_title }}</h2>
+      <p class="about-card-desc">{{ t.about_p2_desc }}</p>
+    </article>
+
+    <article class="about-card">
+      <div class="about-card-icon icon-red">
+        {{ ic('target', 20) }}
+      </div>
+      <h2 class="about-card-title">{{ t.about_p3_title }}</h2>
+      <p class="about-card-desc">{{ t.about_p3_desc }}</p>
+    </article>
+  </div>
+
+  <!-- Vision for Dhaka Section -->
+  <section class="about-vision-section">
+    <div class="vision-card">
+      <div class="vision-header">
+        <span class="vision-badge">DHAKA EMERGENCY RESPONSE</span>
+        <h3 class="vision-title">{{ t.about_vision_title }}</h3>
+      </div>
+      <p class="vision-text">{{ t.about_vision_desc }}</p>
+      
+      <div class="vision-actions">
+        <a href="/emergency" class="btn btn-emergency-primary">
+          {{ ic('cross', 16) }}<span>{{ t.find_care }}</span>
+        </a>
+        <a href="/hospitals" class="btn btn-outline">
+          {{ ic('hospital', 16) }}<span>{{ t.hospitals }}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prototype Transparency Disclaimer -->
+  <section class="disclaimer-strip">
+    <div class="disclaimer-content">
+      <span class="disclaimer-icon">{{ ic('info', 18) }}</span>
+      <div>
+        <strong>{{ t.disclaimer_short }}</strong>
+        <p>{{ t.disclaimer_full }}</p>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

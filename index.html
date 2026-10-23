@@ -1,0 +1,349 @@
+{% from '_icons.html' import ic %}
+{% extends 'base.html' %}
+
+{% block title %}{{ t.brand_name }} — {{ t.hero_title }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-text-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>{{ t.hero_eyebrow }}</span>
+      </div>
+      
+      <h1 class="hero-heading">
+        <span class="hero-heading-lead">{{ t.hero_title_main }}</span>
+        <span class="hero-heading-sub">{{ t.hero_title_sub }}</span>
+      </h1>
+      
+      <p class="hero-description">{{ t.hero_lead }}</p>
+
+      <!-- Primary Action Buttons -->
+      <div class="hero-actions">
+        <a class="btn btn-emergency-primary" href="/emergency">
+          <svg class="btn-icon-svg icon-emergency" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span>{{ t.find_care }}</span>
+        </a>
+        <a class="btn btn-outline" href="/ambulance">
+          <svg class="btn-icon-svg icon-ambulance" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+          <span>{{ t.find_ambulance }}</span>
+        </a>
+        <a class="btn btn-outline" href="/blood">
+          <svg class="btn-icon-svg icon-blood" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <span>{{ t.find_blood }}</span>
+        </a>
+        <a class="btn btn-outline" href="/pharmacy">
+          <svg class="btn-icon-svg icon-medicine" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/></svg>
+          <span>{{ t.find_medicine }}</span>
+        </a>
+      </div>
+
+      <!-- Quick Scenario: Realistic Emergency Care Entry Point -->
+      <div class="quick-scenario-card">
+        <div class="quick-scenario-header">
+          <div class="scenario-eyebrow-tag">
+            <span class="scenario-pulse-dot"></span>
+            <span>{{ t.quick_scenario_eyebrow }}</span>
+          </div>
+          <h2 class="scenario-title">{{ t.quick_scenario_title }}</h2>
+          <p class="scenario-subtitle">{{ t.quick_scenario_desc }}</p>
+        </div>
+
+        <div class="scenario-card-body">
+          <form action="/match" method="POST" class="scenario-form" style="margin:0;">
+            <input type="hidden" name="situation" value="accident">
+            <input type="hidden" name="area" value="Uttara">
+            <input type="hidden" name="conscious" value="yes">
+            <input type="hidden" name="breathing" value="yes">
+            <input type="hidden" name="bleeding" value="yes">
+            <input type="hidden" name="chest" value="no">
+            <input type="hidden" name="blood" value="O+">
+            
+            <div class="scenario-item-action">
+              <div class="scenario-item-info">
+                <div class="scenario-badge-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M8 8v4M6 10h4"/></svg>
+                </div>
+                <div>
+                  <div class="scenario-item-title">{{ t.scenario_accident_title }}</div>
+                  <div class="scenario-item-desc">{{ t.scenario_accident_desc }}</div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-scenario-trigger">
+                <span>{{ t.scenario_accident_action }}</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="scenario-secondary-links">
+            <span class="scenario-secondary-label">{{ t.scenario_view_all }}:</span>
+            <div class="scenario-pills">
+              <a href="/emergency" class="scenario-pill">
+                {{ ic('heart', 12) }}
+                <span>{{ t.sit_chest }}</span>
+              </a>
+              <a href="/emergency" class="scenario-pill">
+                {{ ic('lungs', 12) }}
+                <span>{{ t.sit_breathing }}</span>
+              </a>
+              <a href="/emergency" class="scenario-pill">
+                {{ ic('info', 12) }}
+                <span>{{ t.find_care }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Hospital Readiness & Triage Status Card -->
+    <div class="hero-art-wrapper">
+      <div class="hero-card-preview live-triage-card">
+        <div class="preview-header">
+          <div class="preview-tag">
+            <span class="pulse-indicator"></span>
+            <span>{{ t.live_triage_badge }}</span>
+          </div>
+          <div class="preview-status-meta">
+            <span class="preview-update-pill">{{ t.live_status_updated }}</span>
+            <span class="preview-time">DHAKA</span>
+          </div>
+        </div>
+
+        <!-- Realistic Emergency Healthcare Facility Visual Asset -->
+        <div class="facility-visual-banner" aria-hidden="true">
+          <svg class="facility-banner-svg" viewBox="0 0 460 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bgGrad" x1="0" y1="0" x2="460" y2="140" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#0f172a"/>
+                <stop offset="100%" stop-color="#1e293b"/>
+              </linearGradient>
+              <linearGradient id="canopyGrad" x1="0" y1="0" x2="0" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#dc2626"/>
+                <stop offset="100%" stop-color="#991b1b"/>
+              </linearGradient>
+              <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="70" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.25"/>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.05"/>
+              </linearGradient>
+            </defs>
+            <!-- Background Architecture -->
+            <rect width="460" height="140" rx="10" fill="url(#bgGrad)"/>
+            <rect x="20" y="25" width="420" height="115" rx="4" fill="#334155" fill-opacity="0.35"/>
+            <!-- Hospital Building Upper Floors & Windows -->
+            <rect x="40" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <rect x="100" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <rect x="160" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <rect x="250" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <rect x="310" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <rect x="370" y="38" width="50" height="24" rx="2" fill="url(#glassGrad)" stroke="#64748b" stroke-opacity="0.3"/>
+            <!-- Emergency Department Illuminated Canopy -->
+            <path d="M120 70 L340 70 L360 88 L100 88 Z" fill="url(#canopyGrad)"/>
+            <text x="230" y="83" fill="#ffffff" font-size="11" font-weight="800" letter-spacing="2" text-anchor="middle">EMERGENCY / TRAUMA</text>
+            <!-- Automatic Sliding Glass Doors Entrance -->
+            <rect x="160" y="88" width="140" height="42" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+            <rect x="180" y="92" width="45" height="38" fill="url(#glassGrad)" stroke="#38bdf8" stroke-opacity="0.4"/>
+            <rect x="235" y="92" width="45" height="38" fill="url(#glassGrad)" stroke="#38bdf8" stroke-opacity="0.4"/>
+            <line x1="230" y1="88" x2="230" y2="130" stroke="#64748b" stroke-width="2"/>
+            <!-- Medical Cross Emblem on Facade -->
+            <rect x="218" y="40" width="24" height="24" rx="5" fill="#dc2626"/>
+            <rect x="227" y="44" width="6" height="16" fill="#ffffff"/>
+            <rect x="222" y="49" width="16" height="6" fill="#ffffff"/>
+            <!-- Ground Line & Ambulance Bay Guide -->
+            <line x1="0" y1="130" x2="460" y2="130" stroke="#475569" stroke-width="2"/>
+            <line x1="80" y1="130" x2="380" y2="130" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="8 6"/>
+            <!-- Medical Transport Vehicle Silhouette -->
+            <g transform="translate(30, 92)">
+              <rect x="0" y="10" width="65" height="26" rx="3" fill="#ffffff" fill-opacity="0.95"/>
+              <path d="M45 10 L58 18 L65 18 L65 36 L45 36 Z" fill="#ffffff" fill-opacity="0.95"/>
+              <rect x="47" y="14" width="12" height="9" rx="1" fill="#0284c7" fill-opacity="0.6"/>
+              <circle cx="16" cy="36" r="6" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+              <circle cx="52" cy="36" r="6" fill="#0f172a" stroke="#cbd5e1" stroke-width="2"/>
+              <rect x="18" y="18" width="16" height="4" fill="#dc2626"/>
+              <rect x="24" y="12" width="4" height="16" fill="#dc2626"/>
+              <rect x="52" y="6" width="6" height="4" rx="1" fill="#ef4444"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="preview-body">
+          <div class="match-badge-row">
+            <span class="match-pill">{{ t.live_best_match }}</span>
+            <span class="match-meta-tag">1.2 {{ t.km_away }}</span>
+          </div>
+
+          <div class="facility-header">
+            <div class="facility-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M12 6v6"/></svg>
+            </div>
+            <div>
+              <h3 class="facility-name">{{ t.live_hospital_name }}</h3>
+              <p class="facility-meta">{{ t.live_facility_meta }}</p>
+            </div>
+          </div>
+
+          <!-- Structured Availability Dashboard Metrics -->
+          <div class="verified-availability-panel">
+            <div class="avail-grid">
+              <div class="avail-metric-card avail-success">
+                <div class="avail-metric-header">
+                  <svg class="avail-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="avail-metric-label">{{ t.live_check_emergency }}</span>
+                </div>
+                <div class="avail-metric-status">{{ t.available }}</div>
+              </div>
+
+              <div class="avail-metric-card avail-info">
+                <div class="avail-metric-header">
+                  <svg class="avail-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="avail-metric-label">{{ t.live_check_icu }}</span>
+                </div>
+                <div class="avail-metric-status">{{ t.available }}</div>
+              </div>
+
+              <div class="avail-metric-card avail-teal">
+                <div class="avail-metric-header">
+                  <svg class="avail-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="avail-metric-label">{{ t.live_check_beds }}</span>
+                </div>
+                <div class="avail-metric-status font-prominent">18</div>
+              </div>
+
+              <div class="avail-metric-card avail-crimson">
+                <div class="avail-metric-header">
+                  <svg class="avail-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="avail-metric-label">{{ t.live_check_blood }}</span>
+                </div>
+                <div class="avail-metric-status font-prominent">O+</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Structured "Why This Match?" Rationale Panel -->
+          <div class="why-match-box">
+            <div class="why-match-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <span>{{ t.why_this_match }}</span>
+            </div>
+            <p class="why-match-text">{{ t.why_match_desc }}</p>
+          </div>
+
+          <div class="preview-footer">
+            <div class="verified-status-row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span class="verified-status-text">{{ t.availability_verified }}</span>
+            </div>
+            <p class="preview-caption">{{ t.live_hospital_b_caption }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="section-how">
+  <div class="section-header text-center">
+    <p class="section-eyebrow">{{ t.how_eyebrow }}</p>
+    <h2 class="section-title">{{ t.how_title }}</h2>
+    <p class="section-lead">{{ t.how_lead }}</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card step-red">
+      <div class="step-head">
+        <div class="step-badge">01</div>
+        <span class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      </div>
+      <h3 class="step-title">{{ t.step_1_title }}</h3>
+      <p class="step-desc">{{ t.step_1_desc }}</p>
+    </div>
+
+    <div class="step-card step-amber">
+      <div class="step-head">
+        <div class="step-badge">02</div>
+        <span class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+      </div>
+      <h3 class="step-title">{{ t.step_2_title }}</h3>
+      <p class="step-desc">{{ t.step_2_desc }}</p>
+    </div>
+
+    <div class="step-card step-teal">
+      <div class="step-head">
+        <div class="step-badge">03</div>
+        <span class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M12 6v6"/></svg></span>
+      </div>
+      <h3 class="step-title">{{ t.step_3_title }}</h3>
+      <p class="step-desc">{{ t.step_3_desc }}</p>
+    </div>
+
+    <div class="step-card step-green">
+      <div class="step-head">
+        <div class="step-badge">04</div>
+        <span class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+      </div>
+      <h3 class="step-title">{{ t.step_4_title }}</h3>
+      <p class="step-desc">{{ t.step_4_desc }}</p>
+    </div>
+
+    <div class="step-card step-blue">
+      <div class="step-head">
+        <div class="step-badge">05</div>
+        <span class="step-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span>
+      </div>
+      <h3 class="step-title">{{ t.step_5_title }}</h3>
+      <p class="step-desc">{{ t.step_5_desc }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Why Suitability Matters / Core Principles -->
+<section class="section-features">
+  <div class="section-header text-center">
+    <p class="section-eyebrow">DESIGNED FOR REALITY</p>
+    <h2 class="section-title">{{ t.why_title }}</h2>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card feature-teal">
+      <div class="feature-icon-wrapper feat-teal">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3 class="feature-title">{{ t.feat_1_title }}</h3>
+      <p class="feature-desc">{{ t.feat_1_desc }}</p>
+    </div>
+
+    <div class="feature-card feature-blue">
+      <div class="feature-icon-wrapper feat-blue">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+      </div>
+      <h3 class="feature-title">{{ t.feat_2_title }}</h3>
+      <p class="feature-desc">{{ t.feat_2_desc }}</p>
+    </div>
+
+    <div class="feature-card feature-amber">
+      <div class="feature-icon-wrapper feat-amber">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3 class="feature-title">{{ t.feat_3_title }}</h3>
+      <p class="feature-desc">{{ t.feat_3_desc }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Emergency Disclaimer Banner -->
+<section class="disclaimer-strip">
+  <div class="disclaimer-content">
+    <div class="disclaimer-icon-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    </div>
+    <div>
+      <strong>{{ t.disclaimer_short }}</strong>
+      <p>{{ t.disclaimer_full }}</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

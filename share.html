@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import ic %}
+
+{% block title %}{{ t.share_eyebrow }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container share-page">
+  <!-- Stepper Progress Header -->
+  <div class="progress-stepper" role="progressbar" aria-label="Triage Progress">
+    <div class="step-item completed">
+      <span class="step-circle">{{ ic('check', 13) }}</span>
+      <span class="step-label">{{ t.progress_step_1 }}</span>
+    </div>
+    <div class="step-connector completed"></div>
+    <div class="step-item completed">
+      <span class="step-circle">{{ ic('check', 13) }}</span>
+      <span class="step-label">{{ t.progress_step_2 }}</span>
+    </div>
+    <div class="step-connector completed"></div>
+    <div class="step-item completed">
+      <span class="step-circle">{{ ic('check', 13) }}</span>
+      <span class="step-label">{{ t.progress_step_3 }}</span>
+    </div>
+    <div class="step-connector completed"></div>
+    <div class="step-item active">
+      <span class="step-circle">4</span>
+      <span class="step-label">{{ t.progress_step_4 }}</span>
+    </div>
+  </div>
+
+  <header class="page-header text-center">
+    <div class="header-badge">
+      <span>{{ t.share_eyebrow }}</span>
+    </div>
+    <h1 class="page-title">{{ t.share_title.format(level=t[plan.level] if plan.level in t else plan.level|capitalize) }}</h1>
+    <p class="page-subtitle">{{ t.share_summary }}</p>
+  </header>
+
+  <!-- Share Summary Printable / Copyable Card -->
+  <div class="share-card-container">
+    <div class="share-card-printable" id="shareCardPrintable">
+      <div class="share-card-top-bar">
+        <div class="share-brand">
+          <span class="brand-icon">{{ ic('cross', 16) }}</span>
+          <strong>{{ t.brand_name }}</strong>
+        </div>
+        <span class="share-badge-pill">{{ t.share_badge }}</span>
+      </div>
+
+      <div class="share-details-block">
+        <div class="share-row">
+          <span class="share-label">{{ t.plan_area }}</span>
+          <span class="share-value">{{ ic('pin', 14) }} <span>{{ t_area(plan.area) }}</span></span>
+        </div>
+
+        <div class="share-row">
+          <span class="share-label">{{ t.plan_needs }}</span>
+          <span class="share-value">
+            {% for item in plan.needs %}
+              <span class="need-chip">{{ ic('check', 12) }} <span>{{ t_need(item) }}</span></span>
+            {% endfor %}
+          </span>
+        </div>
+
+        {% if plan.blood %}
+          <div class="share-row">
+            <span class="share-label">{{ t.plan_blood }}</span>
+            <span class="share-value chip-blood">{{ ic('blood', 14) }} <span>{{ plan.blood }}</span></span>
+          </div>
+        {% endif %}
+
+        {% if best %}
+          <hr class="share-divider">
+
+          <div class="share-hospital-box">
+            <span class="share-label">{{ t.plan_hospital }}</span>
+            <h2 class="share-hosp-name">{{ best.name }}</h2>
+            <p class="share-hosp-meta">
+              {{ t_kind(best.kind) }} <span class="meta-sep">·</span> {{ ic('pin', 13) }} {{ t_area(best.area) }} <span class="meta-sep">·</span> {{ t_num(best.distance) }} {{ t.km_away }}
+            </p>
+
+            <div class="share-row">
+              <span class="share-label">{{ t.plan_contact }}</span>
+              <span class="share-value highlight-phone">
+                <a href="tel:{{ best.phone }}">{{ ic('phone', 14) }} <span>{{ best.phone }}</span></a>
+              </span>
+            </div>
+
+            <div class="share-row">
+              <span class="share-label">{{ t.plan_instructions }}</span>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Actions Row -->
+    <div class="share-actions-row">
+      {% if best %}
+        <a class="btn btn-call-primary" href="tel:{{ best.phone }}">
+          {{ ic('phone', 15) }}<span>{{ t.call }} {{ best.phone }}</span>
+        </a>
+        <a class="btn btn-directions-primary" target="_blank" rel="noopener noreferrer" href="{{ maps_url(best.lat, best.lng, plan.area) }}">
+          {{ ic('route', 15) }}<span>{{ t.open_route_maps }}</span>
+        </a>
+      {% endif %}
+
+      <button type="button" class="btn btn-outline" id="copyBtn" onclick="copyShareText()">
+        <span class="btn-icon">{{ ic('clipboard', 15) }}</span>
+        <span id="copyBtnText">{{ t.copy_details }}</span>
+      </button>
+
+      <button type="button" class="btn btn-outline" id="shareNativeBtn" onclick="shareNative()">
+        <span class="btn-icon">{{ ic('link', 15) }}</span>
+        <span>{{ t.share_via_apps }}</span>
+      </button>
+
+      <a class="btn btn-outline" href="/match">
+        {{ ic('arrow-left', 15) }}<span>{{ t.back_to_results }}</span>
+      </a>
+    </div>
+
+    <!-- Toast Notification for Copy Success -->
+    <div id="copyToast" class="toast-popup" role="alert" aria-live="polite">
+      {{ ic('check', 14) }} <span>{{ t.copied_details }}</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function getShareSummaryText() {
+  const card = document.getElementById('shareCardPrintable');
+  return card ? card.innerText.trim() : '';
+}
+
+function copyShareText() {
+  const text = getShareSummaryText();
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('copyToast');
+    const copyText = document.getElementById('copyBtnText');
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+    if (copyText) {
+      const orig = copyText.textContent;
+      copyText.textContent = "{{ t.copied_details }}";
+      setTimeout(() => copyText.textContent = orig, 3000);
+    }
+  }).catch(() => {
+    alert("{{ t.copied_details }}");
+  });
+}
+
+function shareNative() {
+  const text = getShareSummaryText();
+  if (navigator.share) {
+    navigator.share({
+      title: "{{ t.share_badge }}",
+      text: text,
+      url: window.location.href
+    }).catch(() => {});
+  } else {
+    copyShareText();
+  }
+}
+</script>
+{% endblock %}

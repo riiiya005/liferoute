@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ t.brand_name }} — {{ t.brand_tagline }}{% endblock %}</title>
+  
+  <!-- Modern Typography: Inter + Hind Siliguri -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  
+  <!-- LifeRoute Stitch Design System -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%230f766e'/><path d='M50 22v56M22 50h56' stroke='%23ffffff' stroke-width='14' stroke-linecap='round'/></svg>">
+</head>
+<body>
+  <!-- Top Emergency Alert Strip -->
+  <div class="top-banner">
+    <div class="banner-inner">
+      <a href="tel:999" class="banner-pill" title="{{ t.call_now }}">
+        <svg class="banner-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>{{ t.emergency_helpline }}</span>
+      </a>
+      <span class="banner-text">{{ t.prototype }}</span>
+      <div class="banner-lang-switch">
+        <a href="/language/en" class="lang-link {% if lang == 'en' %}active{% endif %}" title="English">English</a>
+        <span class="divider">|</span>
+        <a href="/language/bn" class="lang-link {% if lang == 'bn' %}active{% endif %}" title="বাংলা">বাংলা</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Brand Logo -->
+      <a class="brand" href="/">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4v16M4 12h16"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">Life<span class="brand-accent">Route</span></span>
+          <span class="brand-tagline">{{ t.brand_tagline }}</span>
+        </div>
+      </a>
+
+      <!-- Header Emergency Quick Contact (Mobile + Tablet accessible) -->
+      <div class="header-actions-mobile">
+        <a href="tel:999" class="header-call-btn" title="{{ t.call_now }} 999">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>999</span>
+        </a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button class="mobile-toggle" aria-label="{{ t.menu }}" aria-expanded="false" onclick="toggleNav()">
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+          <span class="hamburger-bar"></span>
+        </button>
+      </div>
+
+      <!-- Desktop Nav & Actions -->
+      <nav class="site-nav" id="siteNav">
+        <a href="/" class="nav-item nav-home {% if request.path == '/' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-home" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </span>
+          <span>{{ t.home }}</span>
+        </a>
+        <a href="/emergency" class="nav-item nav-emergency {% if request.path == '/emergency' or request.path == '/match' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-emergency" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+          </span>
+          <span>{{ t.emergency }}</span>
+        </a>
+        <a href="/hospitals" class="nav-item nav-hospital {% if request.path == '/hospitals' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-hospital" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M12 6v6"/></svg>
+          </span>
+          <span>{{ t.hospitals }}</span>
+        </a>
+        <a href="/ambulance" class="nav-item nav-ambulance {% if request.path == '/ambulance' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-ambulance" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/><path d="M8 8v4M6 10h4"/></svg>
+          </span>
+          <span>{{ t.ambulance }}</span>
+        </a>
+        <a href="/blood" class="nav-item nav-blood {% if request.path == '/blood' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-blood" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </span>
+          <span>{{ t.blood }}</span>
+        </a>
+        <a href="/pharmacy" class="nav-item nav-medicine {% if request.path == '/pharmacy' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-medicine" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+          </span>
+          <span>{{ t.medicine }}</span>
+        </a>
+        <a href="/about" class="nav-item nav-about {% if request.path == '/about' %}active{% endif %}">
+          <span class="nav-icon">
+            <svg class="nav-icon-svg nav-icon-about" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </span>
+          <span>{{ t.about }}</span>
+        </a>
+
+        <!-- Segmented Language Switcher -->
+        <div class="nav-lang-pill" role="group" aria-label="Language selection">
+          <a href="/language/en" class="lang-pill-btn {% if lang == 'en' %}active{% endif %}">EN</a>
+          <a href="/language/bn" class="lang-pill-btn {% if lang == 'bn' %}active{% endif %}">বাংলা</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Application Content Area -->
+  <main class="site-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Standard Healthcare Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col brand-col">
+        <a class="brand footer-brand" href="/">
+          <div class="brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 4v16M4 12h16"/>
+            </svg>
+          </div>
+          <span class="brand-title">Life<span class="brand-accent">Route</span></span>
+        </a>
+        <p class="footer-lead">{{ t.footer_tagline }}</p>
+        <p class="footer-sub">{{ t.disclaimer_short }}</p>
+      </div>
+
+      <div class="footer-col links-col">
+        <h4 class="footer-heading">{{ t.footer_links }}</h4>
+        <div class="footer-links-grid">
+          <a href="/emergency">
+            <svg class="link-icon link-icon-emergency" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            <span>{{ t.find_care }}</span>
+          </a>
+          <a href="/ambulance">
+            <svg class="link-icon link-icon-ambulance" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+            <span>{{ t.ambulance }}</span>
+          </a>
+          <a href="/hospitals">
+            <svg class="link-icon link-icon-hospital" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16M9 9h6M12 6v6"/></svg>
+            <span>{{ t.hospitals }}</span>
+          </a>
+          <a href="/blood">
+            <svg class="link-icon link-icon-blood" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <span>{{ t.blood }}</span>
+          </a>
+          <a href="/pharmacy">
+            <svg class="link-icon link-icon-medicine" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/></svg>
+            <span>{{ t.medicine }}</span>
+          </a>
+          <a href="/about">
+            <svg class="link-icon link-icon-info" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>{{ t.about }}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col emergency-col">
+        <div class="emergency-box">
+          <div class="em-title">
+            <svg class="em-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>{{ t.emergency_helpline }}</span>
+          </div>
+          <p class="em-desc">{{ t.disclaimer_full }}</p>
+          <div class="em-actions">
+            <a href="tel:999" class="btn btn-danger-sm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>{{ t.call }} 999</span>
+            </a>
+            <a href="/emergency" class="btn btn-teal-sm">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+              <span>{{ t.find_care }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <p>{{ t.all_rights }}</p>
+        <div class="bottom-lang-links">
+          <a href="/language/en" class="{% if lang == 'en' %}active{% endif %}">English</a>
+          <span>·</span>
+          <a href="/language/bn" class="{% if lang == 'bn' %}active{% endif %}">বাংলা</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet Map Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Application Script -->
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% from '_icons.html' import ic %}
+
+{% block title %}{{ t.medicine }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container directory-page page-pharmacy">
+  <!-- Header Section -->
+  <header class="page-header page-hero hero-pharmacy text-center">
+    <span class="hero-icon-badge">{{ ic('pill', 26) }}</span>
+    <div class="header-badge">
+      <span>{{ t.pharmacy_eyebrow }}</span>
+    </div>
+    <h1 class="page-title">{{ t.pharmacy_title }}</h1>
+    <p class="page-subtitle">{{ t.pharmacy_subtitle }}</p>
+  </header>
+
+  <!-- Filter & Search Toolbar -->
+  <div class="filter-card filter-card-themed">
+    <!-- Quick Medicine Suggestion Pills -->
+    <div class="quick-searches-row">
+      <span class="quick-searches-label">{{ ic('pill', 14) }} <span>{{ t.quick_searches }}</span></span>
+      <div class="quick-pills-list">
+        {% for med in ['Napa', 'Paracetamol', 'Seclo', 'Nexum', 'Ventolin', 'ORS'] %}
+          <a href="/pharmacy?q={{ med }}&area={{ area|urlencode }}" class="quick-pill {% if term|lower == med|lower %}active{% endif %}">
+            {{ med }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <form class="filter-form" action="/pharmacy" method="GET">
+      <div class="filter-grid filter-grid-pharmacy">
+        <!-- Medicine Search Input -->
+        <div class="filter-item filter-search-item">
+          <label class="filter-label" for="med_search_input">{{ ic('search', 14) }} <span>{{ t.search_label }}</span></label>
+          <input type="text" id="med_search_input" name="q" value="{{ term }}" class="filter-input" placeholder="{{ t.medicine_search_placeholder }}" required>
+        </div>
+
+        <!-- Area Selector -->
+        <div class="filter-item">
+          <label class="filter-label" for="med_area_select">{{ ic('pin', 14) }} <span>{{ t.filter_area }}</span></label>
+          <select id="med_area_select" name="area" class="filter-select">
+            <option value="All Areas" {% if area == 'All Areas' %}selected{% endif %}>{{ t_area('All Areas') }}</option>
+            {% for a in areas %}
+              <option value="{{ a }}" {% if area == a %}selected{% endif %}>{{ t_area(a) }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="filter-actions-item">
+          <button type="submit" class="btn btn-primary btn-filter-submit">
+            <span>{{ t.search }}</span>
+          </button>
+          {% if term %}
+            <a href="/pharmacy" class="btn btn-outline btn-filter-reset" title="{{ t.clear }}">{{ ic('x', 14) }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Results Section -->
+  {% if term and rows %}
+    <section class="pharmacy-results-section">
+      <div class="section-title-row">
+        <h2 class="sub-section-title">{{ ic('box', 18) }} <span>{{ t.available_matches }}</span></h2>
+        <span class="count-pill">{{ t_num(rows|length) }}</span>
+      </div>
+
+      <div class="cards-grid pharmacy-grid">
+        {% for x in rows %}
+          <article class="facility-card pharmacy-card {% if loop.first %}card-featured{% endif %}">
+            <div class="facility-card-top">
+              <span class="badge {% if loop.first %}badge-featured{% else %}badge-teal{% endif %}">
+                {% if loop.first %}{{ ic('award', 13) }} <span>{{ t.nearest_available }}</span>{% else %}<span>{{ t.available }}</span>{% endif %}
+              </span>
+              <span class="stock-pill">
+                <strong>{{ t_num(x.stock_quantity) }}</strong> {{ t.packs_available }}
+              </span>
+            </div>
+
+            <div class="med-info-box">
+              <h3 class="med-name">{{ x.medicine_name }} <small class="brand-sub">({{ x.brand_name }})</small></h3>
+              <p class="med-details">
+                <strong>{{ t.generic }}:</strong> {{ x.generic_name }} <span class="meta-sep">·</span> {{ x.strength }} <span class="meta-sep">·</span> {{ t_dosage(x.dosage_form) }}
+              </p>
+            </div>
+
+            <div class="pharmacy-location-box">
+              <p class="pharmacy-name">{{ ic('store', 14) }} <span>{{ x.name }}</span></p>
+              <p class="pharmacy-addr">{{ ic('pin', 13) }} <span>{{ t_area(x.area) }} — {{ x.address }}</span></p>
+            </div>
+
+            <div class="facility-card-actions">
+              <a class="btn btn-call-primary" href="tel:{{ x.phone }}">
+                {{ ic('phone', 15) }}<span>{{ t.call_pharmacy }} ({{ x.phone }})</span>
+              </a>
+              <a class="btn btn-outline" target="_blank" rel="noopener noreferrer" href="{{ maps_url(x.lat, x.lng, area if area != 'All Areas' else '') }}">
+                {{ ic('route', 15) }}<span>{{ t.open_route_maps }}</span>
+              </a>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+  {% elif term %}
+    <!-- Not Found in Selected Area -->
+    <div class="empty-state-card">
+      <div class="empty-state-icon">{{ ic('pill', 26) }}</div>
+      <h3 class="empty-state-title">{{ t.no_medicine_found }}</h3>
+      <p class="empty-state-desc">{{ t.no_medicine_hint }}</p>
+      <a href="/pharmacy?q={{ term }}&area=All+Areas" class="btn btn-primary">{{ t.search }} {{ t_area('All Areas') }}</a>
+    </div>
+
+    <!-- Nearby Area Matches Fallback -->
+    {% if nearby %}
+      <section class="nearby-section">
+        <div class="section-title-row">
+          <h3 class="sub-section-title">{{ ic('pin', 18) }} <span>{{ t.nearby_matches }}</span></h3>
+          <span class="count-pill">{{ t_num(nearby|length) }}</span>
+        </div>
+
+        <div class="cards-grid pharmacy-grid">
+          {% for x in nearby %}
+            <article class="facility-card pharmacy-card">
+              <div class="facility-card-top">
+                <span class="badge badge-outline">{{ t_area(x.area) }}</span>
+                <span class="stock-pill"><strong>{{ t_num(x.stock_quantity) }}</strong> {{ t.packs_available }}</span>
+              </div>
+              <h4 class="med-name">{{ x.medicine_name }} ({{ x.brand_name }})</h4>
+              <p class="med-details">{{ x.generic_name }} · {{ x.strength }}</p>
+              <p class="pharmacy-name">{{ ic('store', 14) }} <span>{{ x.name }}</span></p>
+              <div class="facility-card-actions">
+                <a class="btn btn-call" href="tel:{{ x.phone }}">{{ ic('phone', 15) }}<span>{{ t.call }}</span></a>
+                <a class="btn btn-outline" target="_blank" rel="noopener noreferrer" href="{{ maps_url(x.lat, x.lng, '') }}">{{ ic('route', 15) }}<span>{{ t.route }}</span></a>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+  {% else %}
+    <!-- Initial Search Prompt -->
+    <div class="empty-state-card">
+      <div class="empty-state-icon">{{ ic('pill', 26) }}</div>
+      <h3 class="empty-state-title">{{ t.search_prompt_title }}</h3>
+      <p class="empty-state-desc">{{ t.search_prompt_subtitle }}</p>
+      <div class="quick-tags-prompt">
+        <a href="/pharmacy?q=Napa&area=All+Areas" class="tag-link">Napa</a>
+        <a href="/pharmacy?q=Paracetamol&area=All+Areas" class="tag-link">Paracetamol</a>
+        <a href="/pharmacy?q=Seclo&area=All+Areas" class="tag-link">Seclo</a>
+        <a href="/pharmacy?q=Nexum&area=All+Areas" class="tag-link">Nexum</a>
+        <a href="/pharmacy?q=Ventolin&area=All+Areas" class="tag-link">Ventolin</a>
+      </div>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

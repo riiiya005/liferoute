@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ t.results_eyebrow }} — {{ t.brand_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container results-page">
+  
+  <!-- Stepper Progress Header -->
+  <div class="progress-stepper" role="progressbar" aria-label="Triage Progress">
+    <div class="step-item completed">
+      <span class="step-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span class="step-label">{{ t.progress_step_1 }}</span>
+    </div>
+    <div class="step-connector completed"></div>
+    <div class="step-item completed">
+      <span class="step-circle"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+      <span class="step-label">{{ t.progress_step_2 }}</span>
+    </div>
+    <div class="step-connector completed"></div>
+    <div class="step-item active">
+      <span class="step-circle">3</span>
+      <span class="step-label">{{ t.progress_step_3 }}</span>
+    </div>
+    <div class="step-connector"></div>
+    <div class="step-item">
+      <span class="step-circle">4</span>
+      <span class="step-label">{{ t.progress_step_4 }}</span>
+    </div>
+  </div>
+
+  <!-- Triage Urgency Banner -->
+  <section class="urgency-banner banner-{{ level }}">
+    <div class="urgency-icon-col">
+      {% if level == 'critical' %}
+        <span class="urgency-icon pulse-red"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v4h10V8a5 5 0 0 0-5-5zM4 18h16M6 12H3M21 12h-3M12 3V1"/></svg></span>
+      {% elif level == 'moderate' %}
+        <span class="urgency-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+      {% else %}
+        <span class="urgency-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
+      {% endif %}
+    </div>
+
+    <div class="urgency-content">
+      <div class="urgency-badge">
+        <span>{{ t.results_eyebrow }}</span>
+      </div>
+
+      <h1 class="urgency-title">
+        {% if level == 'critical' %}
+          {{ t.critical_alert }}
+        {% elif level == 'moderate' %}
+          {{ t.moderate_alert }}
+        {% else %}
+          {{ t.low_alert }}
+        {% endif %}
+      </h1>
+
+      <div class="triage-criteria">
+        <span class="criteria-label">{{ t.looked_for }}</span>
+        <div class="criteria-chips">
+          {% for item in needs %}
+            <span class="criteria-chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> {{ t_need(item) }}</span>
+          {% endfor %}
+          {% if blood %}
+            <span class="criteria-chip chip-blood"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg> {{ blood }} {{ t.blood }}</span>
+          {% endif %}
+          <span class="criteria-chip chip-area"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> {{ t_area(area) }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% if best %}
+    <!-- Best Suitable Match Card -->
+    <section class="best-match-card">
+      <div class="best-match-header">
+        <div class="best-badge">
+          <span class="badge-star"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+          <span>{{ t.best }}</span>
+        </div>
+        <div class="best-distance-pill">
+          <span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> {{ t_num(best.distance) }} {{ t.km_away }}</span>
+        </div>
+      </div>
+
+      <div class="best-facility-details">
+        <h2 class="best-facility-name">{{ best.name }}</h2>
+        <p class="best-facility-meta">
+          <span class="type-tag">{{ t_kind(best.kind) }}</span>
+          <span class="meta-sep">·</span>
+          <span class="area-text"><svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> {{ t_area(best.area) }}</span>
+          <span class="meta-sep">·</span>
+          <span class="phone-link"><a href="tel:{{ best.phone }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> {{ best.phone }}</a></span>
+        </p>
+      </div>
+
+      <!-- Capacity & Readiness Statuses -->
+      <div class="best-statuses-grid">
+        <div class="status-pill status-ready">
+          <span class="status-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span>{{ t.reason_emergency }}</span>
+        </div>
+        {% if 'ICU' in needs %}
+          <div class="status-pill status-ready">
+            <span class="status-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>{{ t.reason_icu }}</span>
+          </div>
+        {% endif %}
+        <div class="status-pill status-ready">
+          <span class="status-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+          <span>{{ t_num(best.beds) }} {{ t.beds_available }}</span>
+        </div>
+        {% if blood %}
+          <div class="status-pill status-ready status-blood">
+            <span class="status-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            <span>{{ blood }} {{ t.available }} ({{ t_num(best.units) }} {{ t.units_available }})</span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Why this hospital explanation card -->
+      <div class="rationale-card">
+        <h3 class="rationale-heading"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg> {{ t.why_hospital }}</h3>
+        <ul class="rationale-list">
+          <li><span class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> {{ t.reason_emergency }}</li>
+          {% if 'ICU' in needs %}
+            <li><span class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> {{ t.reason_icu }}</li>
+          {% endif %}
+          <li><span class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> {{ t.reason_beds }} ({{ t_num(best.beds) }} {{ t.beds_available }})</li>
+          {% if blood %}
+            <li><span class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> {{ t.reason_blood }} ({{ blood }})</li>
+          {% endif %}
+          <li><span class="check-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> {{ t.reason_suitability }}</li>
+        </ul>
+      </div>
+
+      <!-- Primary Action Callouts -->
+      <div class="best-actions-row">
+        <a class="btn btn-call-primary" href="tel:{{ best.phone }}">
+          <span class="btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+          <span>{{ t.call }} {{ best.phone }}</span>
+        </a>
+        <a class="btn btn-directions-primary" target="_blank" rel="noopener noreferrer" href="{{ maps_url(best.lat, best.lng, area) }}">
+          <span class="btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></span>
+          <span>{{ t.open_route_maps }}</span>
+        </a>
+        <a class="btn btn-outline" href="/share">
+          <span class="btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></span>
+          <span>{{ t.share }}</span>
+        </a>
+        <a class="btn btn-outline" href="/ambulance?area={{ area }}">
+          <span class="btn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
+          <span>{{ t.find_ambulance }}</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Leaflet Map Section -->
+    <section class="map-section">
+      <div class="map-header">
+        <h3 class="map-title"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 8 3 16 6 23 3 23 18 16 21 8 18 1 21 1 6"/><line x1="8" y1="3" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="21"/></svg> {{ t.map_title }}</h3>
+        <span class="map-hint">Dhaka · {{ t_area(area) }}</span>
+      </div>
+      <div id="map" class="map-container" data-hospitals='{{ results|tojson }}' data-best-id='{{ best.id }}'></div>
+    </section>
+
+    <!-- Other Evaluated Facilities for Transparency -->
+    {% if results|length > 1 %}
+      <section class="evaluated-facilities-section">
+        <h3 class="evaluated-heading">{{ t.other_hospitals }}</h3>
+        <div class="facilities-grid">
+          {% for h in results %}
+            {% if h.id != best.id %}
+              <article class="facility-card {% if h.suitable %}card-suitable{% else %}card-unsuitable{% endif %}">
+                <div class="facility-card-top">
+                  <h4 class="facility-card-title">{{ h.name }}</h4>
+                  {% if h.suitable %}
+                    <span class="badge badge-success">{{ t.suitable_match }}</span>
+                  {% else %}
+                    <span class="badge badge-muted">{{ t.not_suitable }}</span>
+                  {% endif %}
+                </div>
+
+                <p class="facility-card-meta">
+                  <span class="type-tag tag-{{ h.kind|lower }}">{{ t_kind(h.kind) }}</span> <svg class="meta-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span>{{ t_area(h.area) }}</span> <span class="meta-sep">·</span> <strong>{{ t_num(h.distance) }} {{ t.km_away }}</strong>
+                </p>
+
+                <div class="facility-chips">
+                  <span class="chip-sm {% if h.emergency %}chip-green{% else %}chip-gray{% endif %}">
+                    {% if h.emergency %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Emergency{% else %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> No Emergency{% endif %}
+                  </span>
+                  <span class="chip-sm {% if h.icu %}chip-green{% else %}chip-gray{% endif %}">
+                    {% if h.icu %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ICU{% else %}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> No ICU{% endif %}
+                  </span>
+                  <span class="chip-sm chip-slate"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20"/><circle cx="7" cy="12" r="2"/></svg>
+                    <strong>{{ t_num(h.beds) }}</strong> {{ t.beds_available }}
+                  </span>
+                </div>
+
+                {% if h.reasons %}
+                  <div class="unsuitable-reasons">
+                    {% for r in h.reasons %}
+                      <span class="reason-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> {{ t_reason(r) }}</span>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+
+                <div class="facility-card-actions">
+                  <a class="btn btn-sm btn-outline" href="tel:{{ h.phone }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> {{ t.call }}</a>
+                  <a class="btn btn-sm btn-outline" target="_blank" rel="noopener noreferrer" href="{{ maps_url(h.lat, h.lng, area) }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> {{ t.route }}</a>
+                </div>
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
+  {% else %}
+    <!-- Empty Fallback State -->
+    <section class="empty-state-card">
+      <div class="empty-state-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <h2 class="empty-state-title">{{ t.empty_results_title }}</h2>
+      <p class="empty-state-desc">{{ t.empty_results_desc }}</p>
+      <div class="empty-actions">
+        <a class="btn btn-emergency-primary" href="/ambulance?area={{ area }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M14 8h4l3 3v6a1 1 0 0 1-1 1h-2M6 18h4M16 18h2"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><span>{{ t.find_ambulance }}</span>
+        </a>
+        <a class="btn btn-outline" href="/blood?group={{ blood or '' }}&area={{ area }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg><span>{{ t.find_blood }}</span>
+        </a>
+        <a class="btn btn-outline" href="/emergency">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg><span>{{ t.intake_title }}</span>
+        </a>
+      </div>
+    </section>
+  {% endif %}
+
+</div>
+{% endblock %}
